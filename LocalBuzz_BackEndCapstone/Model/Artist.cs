@@ -9,7 +9,8 @@ namespace LocalBuzz_BackEndCapstone.Model
     {
         public int ArtistId { get; set; }
         public string ArtistName { get; set; }
-        public string Email { get; set; }
+        public string ArtistEmail { get; set; }
+        public string ArtistPassword { get; set; }
         public string City { get; set; }
         public string State { get; set; }
         public string Genre { get; set; }
