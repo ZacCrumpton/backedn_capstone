@@ -35,9 +35,9 @@ namespace LocalBuzz_BackEndCapstone.Data
 
             var sql = @"select *
                         from Artist
-                        where id = @aid";
+                        where ArtistId = @ArtistId";
 
-            var parameters = new { aid = artistId };
+            var parameters = new { ArtistId = artistId };
 
             var singleArtist = db.QueryFirstOrDefault<Artist>(sql, parameters);
             return singleArtist;
@@ -70,11 +70,11 @@ namespace LocalBuzz_BackEndCapstone.Data
         {
             var sql = @"DELETE
                         FROM [dbo].[Artist]
-                        WHERE id = @aid";
+                        WHERE ArtistId = @ArtistId";
 
             using var db = new SqlConnection(_connectionString);
 
-            db.Execute(sql, new { id = artistId });
+            db.Execute(sql, new { ArtistId = artistId });
         }
 
         public Artist Update(int id, Artist artistToUpdate)

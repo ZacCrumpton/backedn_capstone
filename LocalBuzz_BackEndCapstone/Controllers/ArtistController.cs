@@ -59,8 +59,16 @@ namespace LocalBuzz_BackEndCapstone.Controllers
 
         // DELETE api/<ArtistController>/5
         [HttpDelete("{artistid}")]
-        public void Delete(int id)
+        public IActionResult Delete(int artistid)
         {
+            if (_repo.GetById(artistid) == null)
+            {
+                NotFound();
+            }
+
+            _repo.Remove(artistid);
+            return Ok();
+
         }
     }
 }
