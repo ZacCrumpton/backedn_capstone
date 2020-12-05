@@ -30,6 +30,7 @@ namespace LocalBuzz_BackEndCapstone
 
             services.AddSingleton(Configuration);
             services.AddTransient<ArtistRepository>();
+            services.AddTransient<UserRepository>();
 
         }
 
