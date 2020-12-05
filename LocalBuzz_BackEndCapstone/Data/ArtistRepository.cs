@@ -77,19 +77,19 @@ namespace LocalBuzz_BackEndCapstone.Data
             db.Execute(sql, new { ArtistId = artistId });
         }
 
-        public Artist Update(int id, Artist artistToUpdate)
+        public Artist Update(int artistId, Artist artistToUpdate)
         {
             var sql = @"UPDATE [dbo].[Artist]
-                            SET [ArtistName] = @aname
-                                ,[ArtistEmail] = @aemail
-                                ,[ArtistPassword] = @apassword
-                                ,[City] = @city
-                                ,[State] = @state
-                                ,[Genre] = @genre
-                                ,[Followers] = @followers
-                                ,[ArtistPhoto] = @aphoto
+                            SET [ArtistName] = @ArtistName
+                                ,[ArtistEmail] = @ArtistEmail
+                                ,[ArtistPassword] = @ArtistPassword
+                                ,[City] = @City
+                                ,[State] = @State
+                                ,[Genre] = @Genre
+                                ,[Followers] = @Followers
+                                ,[ArtistPhoto] = @ArtistPhoto
                             OUTPUT inserted.*
-                            WHERE id = @aid";
+                            WHERE ArtistId = @ArtistId";
 
             using var db = new SqlConnection(_connectionString);
 
@@ -103,7 +103,7 @@ namespace LocalBuzz_BackEndCapstone.Data
                 artistToUpdate.Genre,
                 artistToUpdate.Followers,
                 artistToUpdate.ArtistPhoto,
-                id
+                artistId
             };
 
             var updatedArtist = db.QueryFirstOrDefault<Artist>(sql, parameters);
