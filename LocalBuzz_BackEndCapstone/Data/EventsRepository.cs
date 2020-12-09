@@ -79,7 +79,7 @@ namespace LocalBuzz_BackEndCapstone.Data
                                 ,[State] = @State
                                 ,[Date] = @Date
                                 ,[Address] = @Address
-                                ,[TicketPrice] @TicketPrice
+                                ,[TicketPrice] = @TicketPrice
                             OUTPUT inserted.*
                             WHERE EventId = @EventId";
 

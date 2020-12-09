@@ -49,7 +49,7 @@ namespace LocalBuzz_BackEndCapstone.Controllers
 
         // PUT api/<EventsController>/5
         [HttpPut("{eventId}")]
-        public IActionResult UpdateEvent(int eventId, Events eventToUpdate)
+        public IActionResult UpdateEvent(int eventId,  Events eventToUpdate)
         {
             var updatedEvent = _repo.Update(eventId, eventToUpdate);
 
