@@ -54,7 +54,7 @@ namespace LocalBuzz_BackEndCapstone.Data
                                 ,[TicketPrice])
                             OUTPUT inserted.EventId
                         VALUES
-                                (@AId, @City, @State, @Date, @Address, @TicketPrice)";
+                                (@ArtistId, @City, @State, @Date, @Address, @TicketPrice)";
 
             var newId = db.ExecuteScalar<int>(sql, eventToAdd);
 
@@ -74,7 +74,7 @@ namespace LocalBuzz_BackEndCapstone.Data
         public Events Update(int eventId, Events eventToUpdate)
         {
             var sql = @"UPDATE [dbo].[Events]
-                            SET [ArtistId] = @AId
+                            SET [ArtistId] = @ArtistId
                                 ,[City] = @City
                                 ,[State] = @State
                                 ,[Date] = @Date
@@ -87,7 +87,7 @@ namespace LocalBuzz_BackEndCapstone.Data
 
             var parameters = new
             {
-                eventToUpdate.AId,
+                eventToUpdate.ArtistId,
                 eventToUpdate.City,
                 eventToUpdate.State,
                 eventToUpdate.Date,
