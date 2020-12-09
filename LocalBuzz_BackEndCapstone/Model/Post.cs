@@ -9,7 +9,7 @@ namespace LocalBuzz_BackEndCapstone.Model
     {
         public int PostId { get; set; }
         public int ArtistId { get; set; }
-        public string content { get; set; }
+        public string PostText { get; set; }
         public DateTime DateCreated { get; set; }
     }
 }
