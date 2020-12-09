@@ -34,6 +34,7 @@ namespace LocalBuzz_BackEndCapstone
             services.AddTransient<EventsRepository>();
             services.AddTransient<PostRepository>();
             services.AddTransient<FollowedArtistRepository>();
+            services.AddTransient<FollowedEventRepository>();
 
         }
 
