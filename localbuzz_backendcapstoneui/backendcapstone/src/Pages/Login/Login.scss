@@ -1,0 +1,18 @@
+#LoginContainer {
+    display: flex;
+    align-items: center;
+    max-width: 400px;
+    background-color: slategray;
+    color: white;
+}
+
+.logHeader{
+    width: 100%;
+    background-color: darkslategrey !important;
+    margin-bottom: 5px;
+}
+
+.loginBtn{
+    margin: 5px;
+    color: white;
+}
