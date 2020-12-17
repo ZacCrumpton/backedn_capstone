@@ -1,6 +1,8 @@
 import React from 'react';
+import firebase from 'firebase/app';
+import 'firebase/auth';
 import './MyNavbar.scss';
-import { NavLink as RRNavLink } from 'react-router-dom';
+import { NavLink as RRNavLink, withRouter } from 'react-router-dom';
 import {
   Collapse,
   Button,
@@ -13,14 +15,12 @@ import {
 
 } from 'reactstrap';
 import PropTypes from 'prop-types';
-// import firebase from 'firebase/app';
-// import 'friebase/auth';
-// import ArtistData from '';
+// import artistData from '../../helpers/data/artistData';
+import userData from '../../helpers/data/userData';
 
 class MyNavbar extends React.Component {
   static propTypes = {
     authed: PropTypes.bool.isRequired,
-    isArtist: PropTypes.bool.isRequired,
   }
 
   state = {
@@ -37,31 +37,39 @@ class MyNavbar extends React.Component {
 
   logOut = (e) => {
     e.preventDefault();
-    // firebase.auth().signOut();
+    firebase.auth().signOut();
   }
 
-  // getArtist = () => {
-  //   firebase.auth().onAuthStateChange((user) => {
-  //     const uid = user.uid;
-  //     console.error(uid);
-  //     artistData.getArtistById()
-  //       .then((artistResponse) => {
-  //         this.setState({
-  //           artistId: artistResponse.data.id,
-  //           isArtist: artistResponse.data.isArtist,
-  //         });
-  //         console.error(artistResponse.data);
-  //       })
-  //       .catch((error) => console.error(error));
-  //   });
-  // }
+  getUser = () => {
+    firebase.auth().onAuthStateChange((user) => {
+      const { uid } = user;
+      console.error(uid);
+      userData.getUserByUid()
+        .then((userResponse) => {
+          this.setState({
+            userId: userResponse.data.id,
+            isUser: userResponse.data.isUser,
+          });
+          console.error(this.state.isUser);
+          console.error(userResponse.data);
+        })
+        .catch((error) => console.error(error));
+    });
+  }
 
-  // componentDidMount() {
-  //   this.getArtist();
-  // }
+  getUser = () => {
+    userData.getUserByUId()
+      .then((users) => (console.log(users, 'users!!')))
+      .catch((err) => console.error(err, 'unable to get the user'));
+  }
+
+  componentDidMount() {
+    // this.getArtist();
+    this.getUser();
+  }
 
   // componentDidUnmount() {
-  //   this.getArtist();
+  //   // this.getArtist();
   // }
 
   render() {
@@ -80,7 +88,7 @@ class MyNavbar extends React.Component {
           <Nav className='ml-auto' navbar>
             <NavItem>
               <NavLink tag={RRNavLink} className='nav-link mr-3' to={`/artist/${artistId}`}>
-                <i></i>
+                Artist Home
               </NavLink>
             </NavItem>
             <NavItem>
@@ -100,7 +108,7 @@ class MyNavbar extends React.Component {
             <Nav className='ml-auto' navbar>
             <NavItem>
               <NavLink tag={RRNavLink} className='nav-link mr-3' to={`/user/${userId}}`}>
-                <i></i>
+                User Home
               </NavLink>
             </NavItem>
             <NavItem>
@@ -129,10 +137,10 @@ class MyNavbar extends React.Component {
     return (
       <div className='MyNavbar'>
         <Navbar color="dark" expand='md' fixed='top'>
-        <NavbarBrand className="brand" href='/home'>Super's Choice</NavbarBrand>
+        <NavbarBrand className="brand" href='/home'>Local Buzz</NavbarBrand>
         <NavbarToggler onClick={this.toggle} />
         <Collapse isOpen={isOpen} navbar>
-          {authedNavBar()}
+          {authedNavbar()}
         </Collapse>
       </Navbar>
       </div>
