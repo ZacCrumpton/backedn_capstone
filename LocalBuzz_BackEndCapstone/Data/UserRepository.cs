@@ -41,6 +41,19 @@ namespace LocalBuzz_BackEndCapstone.Data
             return singleUser;
         }
 
+        public int GetIdByUid(string uid)
+        {
+            using var db = new SqlConnection(_connectionString);
+
+            var sql = @"select * from [User] where fbUid = @uid";
+
+            var parameters = new { uid = uid };
+
+            var selectedId = db.ExecuteScalar<int>(sql, parameters);
+
+            return selectedId;
+        }
+
         public void AddUser (User userToAdd)
         {
             using var db = new SqlConnection(_connectionString);
@@ -56,7 +69,7 @@ namespace LocalBuzz_BackEndCapstone.Data
                                 ,[UserPhoto])
                             Output inserted.UserId
                         VALUES
-                                (@UserName,@UserEmail,@UserPassword,@City,@State,@isUser,@DoB,@UserPhoto)";
+                                (@UserName,@Email,@Password,@City,@State,@isUser,@DoB,@UserPhoto)";
 
             var newId = db.ExecuteScalar<int>(sql, userToAdd);
 
@@ -78,8 +91,8 @@ namespace LocalBuzz_BackEndCapstone.Data
         {
             var sql = @"UPDATE [dbo]. [User]
                             SET [UserName] = @UserName
-                                ,[Email] = @UserEmail
-                                ,[Password] = @UserPassword
+                                ,[Email] = @Email
+                                ,[Password] = @Password
                                 ,[City] = @City
                                 ,[State] = @State
                                 ,[DoB] = @DoB
@@ -91,8 +104,8 @@ namespace LocalBuzz_BackEndCapstone.Data
             var parameters = new
             {
                 userToUpdate.UserName,
-                userToUpdate.UserEmail,
-                userToUpdate.UserPassword,
+                userToUpdate.Email,
+                userToUpdate.Password,
                 userToUpdate.City,
                 userToUpdate.State,
                 userToUpdate.UserPhoto,  

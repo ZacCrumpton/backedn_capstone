@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using LocalBuzz_BackEndCapstone.Data;
 using LocalBuzz_BackEndCapstone.Model;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -12,7 +13,8 @@ namespace LocalBuzz_BackEndCapstone.Controllers
 {
     [Route("api/artist")]
     [ApiController]
-    public class ArtistController : ControllerBase
+    [Authorize]
+    public class ArtistController : FirebaseEnabledController
     {
 
         readonly ArtistRepository _repo;
@@ -24,6 +26,7 @@ namespace LocalBuzz_BackEndCapstone.Controllers
 
         // GET: api/<ArtistController>
         [HttpGet]
+        [AllowAnonymous]
         public IActionResult GetAllArtist()
         {
             var allArtists = _repo.GetALL();
@@ -31,9 +34,11 @@ namespace LocalBuzz_BackEndCapstone.Controllers
         }
 
         // GET api/<ArtistController>/5
-        [HttpGet("{artistId}")]
+        [HttpGet("single")]
+        [AllowAnonymous]
         public IActionResult GetArtistById(int artistId)
         {
+            var currentArtistId = _repo.GetIdByUid(UserId);
             var singleArtist = _repo.GetById(artistId);
             if (singleArtist == null) return NotFound("No artist with that ID was found");
 
@@ -42,6 +47,7 @@ namespace LocalBuzz_BackEndCapstone.Controllers
 
         // POST api/<ArtistController>
         [HttpPost]
+        [AllowAnonymous]
         public IActionResult AddNewArtist(Artist artistToAdd)
         {
             _repo.AddArtist(artistToAdd);
@@ -50,6 +56,7 @@ namespace LocalBuzz_BackEndCapstone.Controllers
 
         // PUT api/<ArtistController>/5
         [HttpPut("{artistid}")]
+        
         public IActionResult UpdateArtist(int artistId, Artist artistToUpdate)
         {
             var updatedArtist = _repo.Update(artistId, artistToUpdate);
