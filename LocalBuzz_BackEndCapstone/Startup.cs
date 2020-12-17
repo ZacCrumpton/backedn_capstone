@@ -11,6 +11,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 
 namespace LocalBuzz_BackEndCapstone
 {
@@ -36,6 +38,20 @@ namespace LocalBuzz_BackEndCapstone
             services.AddTransient<FollowedArtistRepository>();
             services.AddTransient<FollowedEventRepository>();
 
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options => 
+                {
+                    options.IncludeErrorDetails = true;
+                    options.Authority = "https://securetoken.google.com/backendcapstone-ed8a2";
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateLifetime = true,
+                        ValidateAudience = true,
+                        ValidateIssuer = true,
+                        ValidAudience = "backendcapstone-ed8a2",
+                        ValidIssuer = "https://securetoken.google.com/backendcapstone-ed8a2"
+                    };
+                });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -49,6 +65,10 @@ namespace LocalBuzz_BackEndCapstone
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors(policy => policy.AllowAnyHeader().AllowAnyOrigin().AllowAnyMethod());
+
+            app.UseAuthentication();
 
             app.UseAuthorization();
 

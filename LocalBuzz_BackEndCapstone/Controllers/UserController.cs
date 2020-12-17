@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 using LocalBuzz_BackEndCapstone.Data;
 using LocalBuzz_BackEndCapstone.Model;
 
@@ -12,13 +13,17 @@ namespace LocalBuzz_BackEndCapstone.Controllers
 {
     [Route("api/user")]
     [ApiController]
-    public class UserController : ControllerBase
+    //[Authorize]
+    public class UserController : FirebaseEnabledController
     {
         readonly UserRepository _repo;
 
-        public UserController(UserRepository repo)
+        readonly ArtistRepository _artistRepo;
+
+        public UserController(UserRepository repo, ArtistRepository aRepo)
         {
             _repo = repo;
+            _artistRepo = aRepo;
         }
         // GET: api/<UserController>
         [HttpGet]
@@ -27,19 +32,29 @@ namespace LocalBuzz_BackEndCapstone.Controllers
             var AllUsers = _repo.GetAll();
             return Ok(AllUsers);
         }
-
+        
         // GET api/<UserController>/5
-        [HttpGet("{userId}")]
-        public IActionResult GetUserById(int userId)
-        {
-            var singleUser = _repo.GetById(userId);
-            if (singleUser == null) return NotFound("No user with that ID was found");
+        [HttpGet("single")]
 
+        public IActionResult GetUserByUid()
+        {
+            var currentUserId = _repo.GetIdByUid(UserId);
+
+            var singleUser = _repo.GetById(currentUserId);
+
+            // return NotFound("No user with that ID was found")
+            if (singleUser == null)
+            {
+                var currentArtistId = _artistRepo.GetIdByUid(UserId);
+                var singleArtist = _artistRepo.GetById(currentArtistId);
+                return Ok(singleArtist);
+            }
             return Ok(singleUser);
         }
 
         // POST api/<UserController>
         [HttpPost]
+        [AllowAnonymous]
         public IActionResult AddNewUser(User userToAdd)
         {
             _repo.AddUser(userToAdd);

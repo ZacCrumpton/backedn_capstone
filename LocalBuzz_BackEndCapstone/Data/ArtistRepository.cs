@@ -29,6 +29,18 @@ namespace LocalBuzz_BackEndCapstone.Data
             return users;
         }
 
+        public int GetIdByUid(string uid)
+        {
+            using var db = new SqlConnection(_connectionString);
+
+            var sql = @"select * from Artist where fbUid = @uid";
+
+            var parameters = new { uid = uid };
+
+            var selectedId = db.ExecuteScalar<int>(sql, parameters);
+
+            return selectedId;
+        }
         public Artist GetById(int artistId)
         {
             using var db = new SqlConnection(_connectionString);
