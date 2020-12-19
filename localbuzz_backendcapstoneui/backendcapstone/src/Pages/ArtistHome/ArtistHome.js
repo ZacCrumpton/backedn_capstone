@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 import artistData from '../../helpers/data/artistData';
 import artistShape from '../../helpers/propz/ArtistShape';
 
+import Post from '../../Shared/Post/Post';
+
 class ArtistHome extends React.Component {
   static propTypes = {
     authed: PropTypes.bool.isRequired,
@@ -16,20 +18,20 @@ class ArtistHome extends React.Component {
     artist: {},
   }
 
-  getInfo = () => {
-    const { artistId } = this.props;
-    artistData.getArtistById(artistId)
-      .then((request) => {
-        const artist = request.data;
-        this.setState({ artist });
-        // may add followedArtist stuff here eventually to get followers??
-      })
-      .catch(() => console.error('unable to get single Artist'));
-  }
+  // getInfo = () => {
+  //   const { artistId } = this.props;
+  //   artistData.getArtistById(artistId)
+  //     .then((request) => {
+  //       const artist = request.data;
+  //       this.setState({ artist });
+  //       // may add followedArtist stuff here eventually to get followers??
+  //     })
+  //     .catch(() => console.error('unable to get single Artist'));
+  // }
 
-  componentDidMount() {
-    this.getInfo();
-  }
+  // componentDidMount() {
+  //   this.getInfo();
+  // }
 
   render() {
     const { authed, artist } = this.props;
@@ -51,6 +53,7 @@ class ArtistHome extends React.Component {
         <button className="btn btn-danger" onClick={this.editartistEvent}>My Events</button>
         <button className="btn btn-danger" onClick={this.editartistEvent}>Followers</button>
         </div>
+        <Post/>
       </div>
     );
   }
