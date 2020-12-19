@@ -21,14 +21,14 @@ import userData from '../../helpers/data/userData';
 class MyNavbar extends React.Component {
   static propTypes = {
     authed: PropTypes.bool.isRequired,
+    isUser: PropTypes.bool.isRequired,
+    isArtist: PropTypes.bool.isRequired,
   }
 
   state = {
     isOpen: false,
     artistId: 0,
-    isArtist: false,
     userId: 0,
-    isUser: false,
   }
 
   toggle = () => {
@@ -75,15 +75,17 @@ class MyNavbar extends React.Component {
   render() {
     const {
       isOpen,
-      isArtist,
       artistId,
       userId,
-      isUser,
     } = this.state;
-    const { authed } = this.props;
+    const {
+      authed,
+      isUser,
+      isArtist,
+    } = this.props;
 
     const authedNavbar = () => {
-      if (authed && !isArtist) {
+      if (authed && isArtist) {
         return (
           <Nav className='ml-auto' navbar>
             <NavItem>

@@ -19,6 +19,7 @@ namespace LocalBuzz_BackEndCapstone.Model
         public bool isArtist { get; set; }
         public string fbUid { get; set; }
         
+        
 
     }
 }
