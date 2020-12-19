@@ -17,6 +17,8 @@ namespace LocalBuzz_BackEndCapstone.Model
         public string ArtistPhoto { get; set; }
         public int Followers { get; set; }
         public bool isArtist { get; set; }
+        public string fbUid { get; set; }
+        
         
 
     }

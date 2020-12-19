@@ -8,7 +8,10 @@
 package-lock.json
 dist/
 .firebase/
+eslintcacheIgnore
 .eslintcache
+apiKeys.json
+
 # testing
 /coverage
 

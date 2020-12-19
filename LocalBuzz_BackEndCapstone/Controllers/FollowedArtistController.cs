@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using LocalBuzz_BackEndCapstone.Data;
 using LocalBuzz_BackEndCapstone.Model;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -12,6 +13,8 @@ namespace LocalBuzz_BackEndCapstone.Controllers
 {
     [Route("api/followedartist")]
     [ApiController]
+    [Authorize]
+
     public class FollowedArtistController : ControllerBase
     {
 
