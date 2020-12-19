@@ -1,9 +1,15 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import './Login.scss';
 import LoginComp from '../../Shared/LoginComp/LoginComp';
 import authRequests from '../../helpers/data/authData';
 
 class Login extends React.Component {
+static propTypes = {
+  isArtist: PropTypes.bool.isRequired,
+  isUser: PropTypes.bool.isRequired,
+}
+
   state = {
     user: {
       email: '',
@@ -14,11 +20,15 @@ class Login extends React.Component {
 
   loginClickEvent = (e) => {
     const { user } = this.state;
+    const { isArtist, isUser } = this.props;
+    console.error(this.props);
     e.preventDefault();
     authRequests
       .loginUser(user)
       .then(() => {
-        this.props.history.push('/login');
+        this.props.isArtist
+          ? this.props.history.push('/artisthome')
+          : this.props.history.push('/userhome');
       })
       .catch((error) => {
         console.error('there was an error in registering', error);
@@ -72,7 +82,6 @@ class Login extends React.Component {
   render() {
     const { user } = this.state;
     const { authed } = this.props;
-    console.error('authed on login??', this.props.authed);
 
     const buildLogButtons = () => {
       if (authed) {
@@ -134,7 +143,7 @@ class Login extends React.Component {
             <h6>Need to Register?</h6>
             <div className="form-group">
               <label htmlFor="inputUserName" className="col-sm-4 control-label">
-                FirstName:
+                UserName:
               </label>
               <div>
                 <input
