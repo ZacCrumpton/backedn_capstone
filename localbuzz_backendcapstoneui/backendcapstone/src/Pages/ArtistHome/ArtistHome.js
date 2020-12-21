@@ -1,10 +1,14 @@
 import React from 'react';
+import firebase from 'firebase/app';
+import 'firebase/auth';
 import './ArtistHome.scss';
 import PropTypes from 'prop-types';
 import artistData from '../../helpers/data/artistData';
 import artistShape from '../../helpers/propz/ArtistShape';
 
 import Post from '../../Shared/Post/Post';
+import postShape from '../../helpers/propz/Post.Shape';
+import postData from '../../helpers/data/postData';
 
 class ArtistHome extends React.Component {
   static propTypes = {
@@ -12,10 +16,25 @@ class ArtistHome extends React.Component {
     artistId: PropTypes.string.isRequired,
     setSingleArtist: PropTypes.func.isRequired,
     artist: artistShape,
+    post: postShape,
   }
 
   state = {
     artist: {},
+    posts: [],
+  }
+
+  componentDidMount() {
+    postData.getArtistPosts()
+      .then((post) => { this.setState({ post }); })
+      .catch((err) => console.error('cannot get posts by artists', err));
+    this.removeListener = firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        this.setState({ authed: true });
+      } else {
+        this.setState({ authed: false });
+      }
+    });
   }
 
   // getInfo = () => {
@@ -35,6 +54,10 @@ class ArtistHome extends React.Component {
 
   render() {
     const { authed, artist } = this.props;
+    const { posts } = this.state;
+    const buildLatestPostList = posts.map((post) => {
+      <Post key={`post${post.postId}`} post={post}/>;
+    });
     return (
       <div>
         <div className="artistCard">
@@ -53,7 +76,7 @@ class ArtistHome extends React.Component {
         <button className="btn btn-danger" onClick={this.editartistEvent}>My Events</button>
         <button className="btn btn-danger" onClick={this.editartistEvent}>Followers</button>
         </div>
-        <Post/>
+        {buildLatestPostList}
       </div>
     );
   }

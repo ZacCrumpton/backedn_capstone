@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import './Login.scss';
-import LoginComp from '../../Shared/LoginComp/LoginComp';
 import authRequests from '../../helpers/data/authData';
 
 class Login extends React.Component {

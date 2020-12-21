@@ -58,6 +58,17 @@ namespace LocalBuzz_BackEndCapstone.Data
             postToAdd.PostId = newId;
         }
 
+        public Post AddPostByArtistId(int aid)
+        {
+            using var db = new SqlConnection(_connectionString);
+
+            var sqlForSinglePostByArtistId = @"select PostId, PostText, Post.DateCreated, Artist.ArtistId
+                                                from Post
+                                                inner join artist on Post.ArtistId=Artist.ArtistId
+                                                Order by DateCreated
+                                                ";
+        }
+
         public void Remove(int postId)
         {
             var sql = @"DELETE

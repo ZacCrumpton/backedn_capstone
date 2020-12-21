@@ -18,8 +18,8 @@ namespace LocalBuzz_BackEndCapstone.Model
         public int Followers { get; set; }
         public bool isArtist { get; set; }
         public string fbUid { get; set; }
-        
-        
+
+        public List<Post> PostFromArtist {get;set;} = new List<Post>();
 
     }
 }
