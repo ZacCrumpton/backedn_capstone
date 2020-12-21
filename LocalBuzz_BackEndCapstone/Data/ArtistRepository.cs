@@ -49,6 +49,12 @@ namespace LocalBuzz_BackEndCapstone.Data
                         from Artist
                         where ArtistId = @ArtistId";
 
+            // modify
+            // after i get artist
+            // i want to get all events by artistId
+            // then push events into list property we made in artist model
+
+
             var parameters = new { ArtistId = artistId };
 
             var singleArtist = db.QueryFirstOrDefault<Artist>(sql, parameters);

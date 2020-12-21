@@ -8,6 +8,7 @@
 package-lock.json
 dist/
 .firebase/
+apiKeys.json
 
 # testing
 /coverage
