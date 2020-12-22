@@ -32,7 +32,8 @@ namespace LocalBuzz_BackEndCapstone.Data
         {
             using var db = new SqlConnection(_connectionString);
 
-            var sql = @"select *
+
+            var sql = @"select 
                         from Post
                         where PostId = @PostId";
             var parameters = new { PostId = postId };

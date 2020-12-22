@@ -45,6 +45,15 @@ namespace LocalBuzz_BackEndCapstone.Controllers
             return Ok(singleArtist);
         }
 
+        [HttpGet("{uid}/posts")]
+        [AllowAnonymous]
+        public IActionResult GetUsersPosts(string uid)
+        {
+            var posts = _repo.GetPostByUid(uid);
+
+            return Ok(posts);
+        }
+
         // POST api/<ArtistController>
         [HttpPost]
         [AllowAnonymous]

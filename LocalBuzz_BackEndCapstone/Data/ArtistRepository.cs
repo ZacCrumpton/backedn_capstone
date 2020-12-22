@@ -41,6 +41,23 @@ namespace LocalBuzz_BackEndCapstone.Data
 
             return selectedId;
         }
+
+        public IEnumerable<Post> GetPostByUid(string uid)
+        {
+            using var db = new SqlConnection(_connectionString);
+
+            var sql = @"select a.ArtistId, p.PostText, p.DateCreated, p.ArtistId, p.PostId, a.fbUid
+                        From Artist a
+                            join Post p
+                                on p.artistId = a.artistId
+                            where a.fbUid = @UID";
+            var param = new { UID = uid };
+
+            var posts = db.Query<Post>(sql, param);
+
+            return posts;
+        }
+
         public Artist GetById(int artistId)
         {
             using var db = new SqlConnection(_connectionString);

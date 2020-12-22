@@ -17,4 +17,15 @@ const getArtistById = (artistId) =>
 
 const getArtistByUid = () => axios.get(`${baseUrl}/artist/single`);
 
-export default { getAllArtists, getArtistById, getArtistByUid };
+const getArtistPostByUid = (uid) => new Promise((resolve, reject) => {
+  axios.get(`${baseUrl}/artist/${uid}/posts`)
+    .then((response) => resolve(response.data))
+    .catch((err) => reject(err));
+});
+
+export default {
+  getAllArtists,
+  getArtistById,
+  getArtistByUid,
+  getArtistPostByUid,
+};

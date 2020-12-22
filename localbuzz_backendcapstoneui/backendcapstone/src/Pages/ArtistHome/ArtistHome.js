@@ -4,35 +4,45 @@ import PropTypes from 'prop-types';
 import artistData from '../../helpers/data/artistData';
 import artistShape from '../../helpers/propz/ArtistShape';
 
+import authData from '../../helpers/data/authData';
+import Post from '../../Shared/Post/Post';
+import postShape from '../../helpers/propz/Post.Shape';
+import postData from '../../helpers/data/postData';
+
 class ArtistHome extends React.Component {
   static propTypes = {
     authed: PropTypes.bool.isRequired,
     artistId: PropTypes.string.isRequired,
     setSingleArtist: PropTypes.func.isRequired,
     artist: artistShape,
+    post: postShape,
   }
 
   state = {
     artist: {},
+    posts: [],
   }
 
-  getInfo = () => {
-    const { artistId } = this.props;
-    artistData.getArtistById(artistId)
-      .then((request) => {
-        const artist = request.data;
-        this.setState({ artist });
-        // may add followedArtist stuff here eventually to get followers??
+  getPostInfo = () => {
+    artistData.getArtistPostByUid(authData.getUid())
+      .then((response) => {
+        this.setState({ posts: response });
+        console.log(' this is the response', response);
       })
-      .catch(() => console.error('unable to get single Artist'));
+      .catch((err) => console.error('could not get posts for artist', err));
   }
 
   componentDidMount() {
-    this.getInfo();
+    this.getPostInfo();
   }
 
   render() {
+    const { posts } = this.state;
     const { authed, artist } = this.props;
+
+    const buildPostCards = posts.map((post) => (
+      <Post key={post.postId} artist={artist} post={post}/>
+    ));
     return (
       <div>
         <div className="artistCard">
@@ -51,6 +61,7 @@ class ArtistHome extends React.Component {
         <button className="btn btn-danger" onClick={this.editartistEvent}>My Events</button>
         <button className="btn btn-danger" onClick={this.editartistEvent}>Followers</button>
         </div>
+        {buildPostCards}
       </div>
     );
   }
