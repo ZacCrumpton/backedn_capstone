@@ -32,7 +32,8 @@ namespace LocalBuzz_BackEndCapstone.Data
         {
             using var db = new SqlConnection(_connectionString);
 
-            var sql = @"select *
+
+            var sql = @"select 
                         from Post
                         where PostId = @PostId";
             var parameters = new { PostId = postId };
@@ -56,17 +57,6 @@ namespace LocalBuzz_BackEndCapstone.Data
             var newId = db.ExecuteScalar<int>(sql, postToAdd);
 
             postToAdd.PostId = newId;
-        }
-
-        public Post AddPostByArtistId(int aid)
-        {
-            using var db = new SqlConnection(_connectionString);
-
-            var sqlForSinglePostByArtistId = @"select PostId, PostText, Post.DateCreated, Artist.ArtistId
-                                                from Post
-                                                inner join artist on Post.ArtistId=Artist.ArtistId
-                                                Order by DateCreated
-                                                ";
         }
 
         public void Remove(int postId)

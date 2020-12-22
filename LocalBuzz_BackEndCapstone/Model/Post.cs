@@ -11,5 +11,7 @@ namespace LocalBuzz_BackEndCapstone.Model
         public int ArtistId { get; set; }
         public string PostText { get; set; }
         public DateTime DateCreated { get; set; }
+        public string fbUid { get; set; }
+
     }
 }
