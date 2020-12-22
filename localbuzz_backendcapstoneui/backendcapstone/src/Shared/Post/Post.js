@@ -8,15 +8,21 @@ class Post extends React.Component {
     authed: PropTypes.bool.isRequired,
     artistId: PropTypes.string.isRequired,
     post: PropTypes.array.isRequired,
+    artist: PropTypes.object.isRequired,
   }
 
   render() {
-    const { post } = this.props;
+    const { post, artist } = this.props;
     const postLink = `post/${post.postId}`;
     return (
       <div>
-        this is a post
-        <h2>{post.postText}</h2>
+        <div className="card">
+          <div className="card-header">
+            <h5>{artist.artistName}</h5>
+          </div>
+          {post.postText}
+        </div>
+        {/* <h2>{post.postText}</h2> */}
       </div>
     );
   }

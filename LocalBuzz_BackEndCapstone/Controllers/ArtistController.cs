@@ -46,7 +46,7 @@ namespace LocalBuzz_BackEndCapstone.Controllers
         }
 
         [HttpGet("{uid}/posts")]
-        
+        [AllowAnonymous]
         public IActionResult GetUsersPosts(string uid)
         {
             var posts = _repo.GetPostByUid(uid);

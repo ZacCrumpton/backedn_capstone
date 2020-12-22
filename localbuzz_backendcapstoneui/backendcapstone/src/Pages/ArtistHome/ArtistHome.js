@@ -1,11 +1,10 @@
 import React from 'react';
-import firebase from 'firebase/app';
-import 'firebase/auth';
 import './ArtistHome.scss';
 import PropTypes from 'prop-types';
 import artistData from '../../helpers/data/artistData';
 import artistShape from '../../helpers/propz/ArtistShape';
 
+import authData from '../../helpers/data/authData';
 import Post from '../../Shared/Post/Post';
 import postShape from '../../helpers/propz/Post.Shape';
 import postData from '../../helpers/data/postData';
@@ -24,40 +23,26 @@ class ArtistHome extends React.Component {
     posts: [],
   }
 
-  componentDidMount() {
-    postData.getArtistPosts()
-      .then((post) => { this.setState({ post }); })
-      .catch((err) => console.error('cannot get posts by artists', err));
-    this.removeListener = firebase.auth().onAuthStateChanged((user) => {
-      if (user) {
-        this.setState({ authed: true });
-      } else {
-        this.setState({ authed: false });
-      }
-    });
+  getPostInfo = () => {
+    artistData.getArtistPostByUid(authData.getUid())
+      .then((response) => {
+        this.setState({ posts: response });
+        console.log(' this is the response', response);
+      })
+      .catch((err) => console.error('could not get posts for artist', err));
   }
 
-  // getInfo = () => {
-  //   const { artistId } = this.props;
-  //   artistData.getArtistById(artistId)
-  //     .then((request) => {
-  //       const artist = request.data;
-  //       this.setState({ artist });
-  //       // may add followedArtist stuff here eventually to get followers??
-  //     })
-  //     .catch(() => console.error('unable to get single Artist'));
-  // }
-
-  // componentDidMount() {
-  //   this.getInfo();
-  // }
+  componentDidMount() {
+    this.getPostInfo();
+  }
 
   render() {
-    const { authed, artist } = this.props;
     const { posts } = this.state;
-    const buildLatestPostList = posts.map((post) => {
-      <Post key={`post${post.postId}`} post={post}/>;
-    });
+    const { authed, artist } = this.props;
+
+    const buildPostCards = posts.map((post) => (
+      <Post key={post.postId} artist={artist} post={post}/>
+    ));
     return (
       <div>
         <div className="artistCard">
@@ -76,7 +61,7 @@ class ArtistHome extends React.Component {
         <button className="btn btn-danger" onClick={this.editartistEvent}>My Events</button>
         <button className="btn btn-danger" onClick={this.editartistEvent}>Followers</button>
         </div>
-        {buildLatestPostList}
+        {buildPostCards}
       </div>
     );
   }
