@@ -47,12 +47,13 @@ namespace LocalBuzz_BackEndCapstone.Data
             using var db = new SqlConnection(_connectionString);
 
             var sql = @"INSERT INTO [dbo]. [Post]
-                                ([ArtistId]
+                                ([fbUid]
+                                ,[ArtistId]
                                 ,[PostText]
                                 ,[dateCreated])
                             OUTPUT inserted.PostId
                         VALUES 
-                                (@ArtistId, @PostText, @DateCreated)";
+                                (@fbUid, @ArtistId, @PostText, @DateCreated)";
 
             var newId = db.ExecuteScalar<int>(sql, postToAdd);
 

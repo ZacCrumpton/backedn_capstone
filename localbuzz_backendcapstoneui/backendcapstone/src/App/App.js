@@ -84,9 +84,9 @@ class App extends React.Component {
             <MyNavbar authed={authed} isUser={isUser} isArtist={isArtist}/>
             <div className='container d-flex justify-content-center'>
               <Switch authed={authed}>
-                  <Route path='/login' render = {(props) => <Login authed={authed} isUser={isUser} isArtist={isArtist} {...props}/>}/>
                   <Route path='/artisthome' render = {(props) => <ArtistHome authed={authed} isUser={isUser} isArtist={isArtist} artist={artist} {...props}/>}/>
                   <Route path='/userhome' render = {(props) => <UserHome authed={authed} isUser={isUser} isArtist={isArtist} user={user} {...props}/>}/>
+                  <Route path='/login' render = {(props) => <Login authed={authed} isUser={isUser} isArtist={isArtist} {...props}/>}/>
                 <Redirect from='*' to='/login'/>
               </Switch>
             </div>
