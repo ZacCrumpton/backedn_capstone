@@ -7,7 +7,7 @@ class Post extends React.Component {
   static propTypes = {
     authed: PropTypes.bool.isRequired,
     artistId: PropTypes.string.isRequired,
-    post: PropTypes.array.isRequired,
+    post: PropTypes.object.isRequired,
     artist: PropTypes.object.isRequired,
   }
 

@@ -8,32 +8,71 @@ import authData from '../../helpers/data/authData';
 import Post from '../../Shared/Post/Post';
 import postShape from '../../helpers/propz/Post.Shape';
 import postData from '../../helpers/data/postData';
+import CreatePost from '../../Shared/CreatePost/CreatePost';
 
 class ArtistHome extends React.Component {
   static propTypes = {
     authed: PropTypes.bool.isRequired,
     artistId: PropTypes.string.isRequired,
     setSingleArtist: PropTypes.func.isRequired,
-    artist: artistShape,
     post: postShape,
   }
 
   state = {
-    artist: {},
     posts: [],
+    postText: '',
+    dateCreated: '',
   }
 
   getPostInfo = () => {
     artistData.getArtistPostByUid(authData.getUid())
       .then((response) => {
         this.setState({ posts: response });
-        console.log(' this is the response', response);
+        console.log(' this is the post response', response);
       })
       .catch((err) => console.error('could not get posts for artist', err));
   }
 
+  // getArtistbyId = () => {
+  //   artistData.getArtistByUid()
+  //     .then((response) => { this.setState({ artist: response }); })
+  //     .catch((err) => console.error('could not get astist by uid', err));
+  // }
+
   componentDidMount() {
     this.getPostInfo();
+    // this.getArtistbyId();
+    const d = new Date();
+    const actualDate = d.toISOString();
+    this.setState({ dateCreated: actualDate });
+  }
+
+  postTextChange = (e) => {
+    e.preventDefault();
+    this.setState({ postText: e.target.value });
+  }
+
+  submitPost = (e) => {
+    e.preventDefault();
+    const fbUid = authData.getUid();
+    const { artist } = this.props.artist;
+    console.error('this is the artist prop', artist);
+    const newPost = {
+      fbUid,
+      artistId: this.props.artist.artistId,
+      postText: this.state.postText,
+      dateCreated: this.state.dateCreated,
+    };
+    console.error('new post =>', newPost);
+    postData.createPost(newPost)
+      .then(() => {
+        artistData.getArtistPostByUid(authData.getUid())
+          .then((response) => {
+            this.setState({ postText: '' });
+            this.setState({ posts: response });
+          });
+      })
+      .catch((err) => console.error('could not add post', err));
   }
 
   render() {
@@ -61,6 +100,15 @@ class ArtistHome extends React.Component {
         <button className="btn btn-danger" onClick={this.editartistEvent}>My Events</button>
         <button className="btn btn-danger" onClick={this.editartistEvent}>Followers</button>
         </div>
+
+        <div className="CreatePost">
+        <div className="mb-3">
+          <label htmlFor="post-postText">Description</label>
+          <input type="text" className="form-control" id="post-postText" onChange={this.postTextChange} value={this.state.postText}/>
+        </div>
+
+        <button className="btn btn-dark" onClick={this.submitPost}>Submit</button>
+      </div>
         {buildPostCards}
       </div>
     );
