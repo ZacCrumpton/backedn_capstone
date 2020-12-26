@@ -2,13 +2,11 @@ import React from 'react';
 import './ArtistHome.scss';
 import PropTypes from 'prop-types';
 import artistData from '../../helpers/data/artistData';
-import artistShape from '../../helpers/propz/ArtistShape';
 
 import authData from '../../helpers/data/authData';
 import Post from '../../Shared/Post/Post';
 import postShape from '../../helpers/propz/Post.Shape';
 import postData from '../../helpers/data/postData';
-import CreatePost from '../../Shared/CreatePost/CreatePost';
 
 class ArtistHome extends React.Component {
   static propTypes = {
@@ -28,7 +26,6 @@ class ArtistHome extends React.Component {
     artistData.getArtistPostByUid(authData.getUid())
       .then((response) => {
         this.setState({ posts: response });
-        console.log(' this is the post response', response);
       })
       .catch((err) => console.error('could not get posts for artist', err));
   }
@@ -45,6 +42,14 @@ class ArtistHome extends React.Component {
     const d = new Date();
     const actualDate = d.toISOString();
     this.setState({ dateCreated: actualDate });
+  }
+
+  deletePost = (postId) => {
+    postData.deletePost(postId)
+      .then(() => {
+        this.getPostInfo();
+      })
+      .catch((err) => console.error('could not delete post', err));
   }
 
   postTextChange = (e) => {
@@ -80,7 +85,7 @@ class ArtistHome extends React.Component {
     const { authed, artist } = this.props;
 
     const buildPostCards = posts.map((post) => (
-      <Post key={post.postId} artist={artist} post={post}/>
+      <Post key={post.postId} artist={artist} post={post} deletePost={this.deletePost}/>
     ));
     return (
       <div>

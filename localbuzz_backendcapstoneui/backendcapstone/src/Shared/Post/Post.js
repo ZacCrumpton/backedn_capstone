@@ -7,8 +7,14 @@ class Post extends React.Component {
   static propTypes = {
     authed: PropTypes.bool.isRequired,
     artistId: PropTypes.string.isRequired,
-    post: PropTypes.object.isRequired,
     artist: PropTypes.object.isRequired,
+  }
+
+  removePost = (e) => {
+    e.preventDefault();
+    const post = this.props.post.postId;
+    document.getElementById('postCard');
+    this.props.deletePost(post);
   }
 
   render() {
@@ -16,13 +22,13 @@ class Post extends React.Component {
     const postLink = `post/${post.postId}`;
     return (
       <div>
-        <div className="card">
+        <div id={post.postId} className="postCard card">
           <div className="card-header">
             <h5>{artist.artistName}</h5>
           </div>
           {post.postText}
+          <button id={post.postId} className="removePostBtn btn btn-dark" onClick={this.removePost}>Delete</button>
         </div>
-        {/* <h2>{post.postText}</h2> */}
       </div>
     );
   }
