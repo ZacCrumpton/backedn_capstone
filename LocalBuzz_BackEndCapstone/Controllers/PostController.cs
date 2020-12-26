@@ -13,7 +13,6 @@ namespace LocalBuzz_BackEndCapstone.Controllers
 {
     [Route("api/post")]
     [ApiController]
-    [Authorize]
     public class PostController : FirebaseEnabledController
     {
 
