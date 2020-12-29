@@ -80,12 +80,24 @@ class ArtistHome extends React.Component {
       .catch((err) => console.error('could not add post', err));
   }
 
+  updatePost = (postId) => {
+    postData.editPost(postId)
+      .then(() => {
+        this.getArtistPostByUid(authData.getUid())
+          .then((response) => {
+            this.setState({ postText: '' });
+            this.setState({ posts: response });
+          });
+      })
+      .catch((err) => console.error('could not update post', err));
+  }
+
   render() {
     const { posts } = this.state;
     const { authed, artist } = this.props;
 
     const buildPostCards = posts.map((post) => (
-      <Post key={post.postId} artist={artist} post={post} deletePost={this.deletePost}/>
+      <Post key={post.postId} artist={artist} post={post} deletePost={this.deletePost} updatePost={this.updatePost}/>
     ));
     return (
       <div>

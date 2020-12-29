@@ -17,6 +17,12 @@ class Post extends React.Component {
     this.props.deletePost(post);
   }
 
+  editPost = (e) => {
+    e.preventDefault();
+    const post = this.props.post.postId;
+    this.props.history.push(`/editpost/${post}`);
+  }
+
   render() {
     const { post, artist } = this.props;
     const postLink = `post/${post.postId}`;
@@ -28,6 +34,7 @@ class Post extends React.Component {
           </div>
           {post.postText}
           <button id={post.postId} className="removePostBtn btn btn-dark" onClick={this.removePost}>Delete</button>
+          <button className="editPost btn btn-dark" onClick={this.editPost}>Edit</button>
         </div>
       </div>
     );
