@@ -87,7 +87,7 @@ class App extends React.Component {
               <Switch authed={authed}>
                   <Route path='/artisthome' render = {(props) => <ArtistHome authed={authed} isUser={isUser} isArtist={isArtist} artist={artist} {...props}/>}/>
                   <Route path='/userhome' render = {(props) => <UserHome authed={authed} isUser={isUser} isArtist={isArtist} user={user} {...props}/>}/>
-                  <Route path='/post/{postid}'><EditPost/></Route>
+                  <Route path='/editpost/:postid'><EditPost/></Route>
                   <Route path='/login' render = {(props) => <Login authed={authed} isUser={isUser} isArtist={isArtist} {...props}/>}/>
                 <Redirect from='*' to='/login'/>
               </Switch>
