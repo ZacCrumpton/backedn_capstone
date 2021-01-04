@@ -74,9 +74,7 @@ namespace LocalBuzz_BackEndCapstone.Data
         public Post Update(int postId, Post postToUpdate)
         {
             var sql = @"UPDATE [dbo].[Post]
-                            SET [ArtistId] = @ArtistId
-                                ,[PostText] = @PostText
-                                ,[DateCreated] = @DateCreated
+                            SET [PostText] = @PostText
                             OUTPUT inserted.*
                             WHERE PostId = @PostId";
 
@@ -84,10 +82,8 @@ namespace LocalBuzz_BackEndCapstone.Data
 
             var parameters = new
             {
-                postToUpdate.ArtistId,
-                postToUpdate.PostText,
-                postToUpdate.DateCreated,
-                postId
+                PostText = postToUpdate.PostText,
+                PostId = postId
             };
 
             var updatedPost = db.QueryFirstOrDefault<Post>(sql, parameters);

@@ -9,8 +9,18 @@ const getArtistPosts = () => new Promise((resolve, reject) => {
     .catch((error) => reject(error));
 });
 
+const getSinglePost = (postId) => new Promise((resolve, reject) => {
+  axios.get(`${baseUrl}/post/${postId}`)
+    .then((response) => resolve(response.data))
+    .catch((err) => console.error('could not get single post', err));
+});
+
 const createPost = (newPost) => axios.post(`${baseUrl}/post`, newPost);
+
+const updatePost = (postId, updatedPost) => axios.put(`${baseUrl}/post/${postId}`, updatedPost);
 
 const deletePost = (postId) => axios.delete(`${baseUrl}/post/${postId}`);
 
-export default { getArtistPosts, createPost, deletePost };
+export default {
+  getArtistPosts, createPost, deletePost, getSinglePost, updatePost,
+};
