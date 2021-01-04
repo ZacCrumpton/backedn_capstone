@@ -1,4 +1,5 @@
 import React from 'react';
+import { withRouter, Link } from 'react-router-dom';
 import './Post.scss';
 import PropTypes from 'prop-types';
 import postShape from '../../helpers/propz/Post.Shape';
@@ -17,15 +18,16 @@ class Post extends React.Component {
     this.props.deletePost(post);
   }
 
-  editPost = (e) => {
-    e.preventDefault();
-    const post = this.props.post.postId;
-    this.props.history.push(`/editpost/${post}`);
-  }
+  // editPost = (e) => {
+  //   e.preventDefault();
+  //   const post = this.props.post.postId;
+  //   console.error('what is the postId for the push: ', post);
+  //   this.props.history.push(`/editpost/${post}`);
+  // }
 
   render() {
     const { post, artist } = this.props;
-    const postLink = `post/${post.postId}`;
+    const postLink = `editpost/${post.postId}`;
     return (
       <div>
         <div id={post.postId} className="postCard card">
@@ -34,11 +36,11 @@ class Post extends React.Component {
           </div>
           {post.postText}
           <button id={post.postId} className="removePostBtn btn btn-dark" onClick={this.removePost}>Delete</button>
-          <button className="editPost btn btn-dark" onClick={this.editPost}>Edit</button>
+          <Link className="btn btn-dark" to={postLink}>Edit</Link>
         </div>
       </div>
     );
   }
 }
 
-export default Post;
+export default withRouter(Post);
