@@ -23,9 +23,16 @@ const getArtistPostByUid = (uid) => new Promise((resolve, reject) => {
     .catch((err) => reject(err));
 });
 
+const getArtistEventsByUid = (uid) => new Promise((resolve, reject) => {
+  axios.get(`${baseUrl}/artist/${uid}/events`)
+    .then((response) => resolve(response.data))
+    .catch((err) => reject(err));
+});
+
 export default {
   getAllArtists,
   getArtistById,
   getArtistByUid,
   getArtistPostByUid,
+  getArtistEventsByUid,
 };

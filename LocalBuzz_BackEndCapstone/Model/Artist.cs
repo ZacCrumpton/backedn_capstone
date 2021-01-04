@@ -21,5 +21,7 @@ namespace LocalBuzz_BackEndCapstone.Model
 
         public List<Post> PostFromArtist {get;set;} = new List<Post>();
 
+        public List<Events> EventFromArtist { get; set; } = new List<Events>();
+
     }
 }

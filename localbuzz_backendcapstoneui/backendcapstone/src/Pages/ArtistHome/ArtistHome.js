@@ -5,8 +5,11 @@ import artistData from '../../helpers/data/artistData';
 
 import authData from '../../helpers/data/authData';
 import Post from '../../Shared/Post/Post';
-import postShape from '../../helpers/propz/Post.Shape';
+import postShape from '../../helpers/propz/PostShape';
 import postData from '../../helpers/data/postData';
+
+import Event from '../../Shared/Event/Event';
+import eventShape from '../../helpers/propz/EventShape';
 
 class ArtistHome extends React.Component {
   static propTypes = {
@@ -14,10 +17,12 @@ class ArtistHome extends React.Component {
     artistId: PropTypes.string.isRequired,
     setSingleArtist: PropTypes.func.isRequired,
     post: postShape,
+    event: eventShape,
   }
 
   state = {
     posts: [],
+    events: [],
     postText: '',
     dateCreated: '',
   }
@@ -27,7 +32,15 @@ class ArtistHome extends React.Component {
       .then((response) => {
         this.setState({ posts: response });
       })
-      .catch((err) => console.error('could not get posts for artist', err));
+      .catch((err) => console.error('could not get posts for artist: ', err));
+  }
+
+  getEventsInfo = () => {
+    artistData.getArtistEventsByUid(authData.getUid())
+      .then((response) => {
+        this.setState({ events: response });
+      })
+      .catch((err) => console.error('could not get events for artist: ', err));
   }
 
   // getArtistbyId = () => {
@@ -38,6 +51,7 @@ class ArtistHome extends React.Component {
 
   componentDidMount() {
     this.getPostInfo();
+    this.getEventsInfo();
     // this.getArtistbyId();
     const d = new Date();
     const actualDate = d.toISOString();
@@ -93,11 +107,14 @@ class ArtistHome extends React.Component {
   }
 
   render() {
-    const { posts } = this.state;
+    const { posts, events } = this.state;
     const { authed, artist } = this.props;
 
     const buildPostCards = posts.map((post) => (
       <Post key={post.postId} artist={artist} post={post} deletePost={this.deletePost} updatePost={this.updatePost}/>
+    ));
+    const buildEventsCards = events.map((event) => (
+      <Event key={event.eventId} artist={artist} event={event}/>
     ));
     return (
       <div>
@@ -126,6 +143,7 @@ class ArtistHome extends React.Component {
 
         <button className="btn btn-dark" onClick={this.submitPost}>Submit</button>
       </div>
+        {buildEventsCards}
         {buildPostCards}
       </div>
     );

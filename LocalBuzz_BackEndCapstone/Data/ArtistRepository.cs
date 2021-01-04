@@ -58,6 +58,23 @@ namespace LocalBuzz_BackEndCapstone.Data
             return posts;
         }
 
+        public IEnumerable<Events> GetEventsByUid(string uid)
+        {
+            using var db = new SqlConnection(_connectionString);
+
+            var sql = @"select a.ArtistId, e.ArtistId, e.[Address], e.[State], e.[City], e.EventId, e.TicketPrice, e.fbUid
+	                        from Artist a
+		                        join [Events] e
+			                        on e.ArtistId = a.ArtistId
+		                        where a.fbUid = @UID";
+
+            var param = new { UID = uid };
+
+            var events = db.Query<Events>(sql, param);
+
+            return events;
+        }
+
         public Artist GetById(int artistId)
         {
             using var db = new SqlConnection(_connectionString);
