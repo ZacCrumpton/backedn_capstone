@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 import './Post.scss';
 import PropTypes from 'prop-types';
 import postShape from '../../helpers/propz/Post.Shape';
@@ -43,4 +43,4 @@ class Post extends React.Component {
   }
 }
 
-export default Post;
+export default withRouter(Post);

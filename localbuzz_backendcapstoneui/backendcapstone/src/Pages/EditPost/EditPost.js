@@ -6,7 +6,7 @@ import postData from '../../helpers/data/postData';
 class EditPost extends React.Component {
   state = {
     post: {},
-    postId: this.props.match.params.postid * 1,
+    postid: this.props.match.params.postid * 1,
     postText: '',
   }
 
@@ -17,12 +17,12 @@ class EditPost extends React.Component {
 
   editPost = (e) => {
     e.preventDefault();
-    const { postId } = this.state;
-    console.error('post props in editpost method: ', postId);
+    const postid = this.state;
+    console.error('post props in editpost method: ', postid.postid);
     const updatedPost = {
       postText: this.state.postText,
     };
-    postData.updatePost(postId, updatedPost)
+    postData.updatePost(postid.postid, updatedPost)
       .then(() => {
         this.props.history.push('/artisthome');
       })

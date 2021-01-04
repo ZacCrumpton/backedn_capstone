@@ -16,7 +16,7 @@ import MyNavbar from '../Shared/MyNavbar/MyNavbar';
 import ArtistHome from '../Pages/ArtistHome/ArtistHome';
 import userData from '../helpers/data/userData';
 import UserHome from '../Pages/UserHome/UserHome';
-import EditPost from '../Shared/EditPost/EditPost';
+import EditPost from '../Pages/EditPost/EditPost';
 
 fbConnection();
 
@@ -87,7 +87,7 @@ class App extends React.Component {
               <Switch authed={authed}>
                   <Route path='/artisthome' render = {(props) => <ArtistHome authed={authed} isUser={isUser} isArtist={isArtist} artist={artist} {...props}/>}/>
                   <Route path='/userhome' render = {(props) => <UserHome authed={authed} isUser={isUser} isArtist={isArtist} user={user} {...props}/>}/>
-                  <Route path='/editpost/:postid'><EditPost/></Route>
+                  <Route path='/editpost/:postid' render = {(props) => <EditPost {...props}/>}/>
                   <Route path='/login' render = {(props) => <Login authed={authed} isUser={isUser} isArtist={isArtist} {...props}/>}/>
                 <Redirect from='*' to='/login'/>
               </Switch>
