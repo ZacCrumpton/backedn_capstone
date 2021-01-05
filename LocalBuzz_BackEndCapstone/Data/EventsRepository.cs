@@ -46,7 +46,8 @@ namespace LocalBuzz_BackEndCapstone.Data
             using var db = new SqlConnection(_connectionString);
 
             var sql = @"INSERT INTO [dbo].[Events]
-                                ([ArtistId]
+                                ([fbUid]
+                                ,[ArtistId]
                                 ,[City]
                                 ,[State]
                                 ,[Date]
@@ -54,7 +55,7 @@ namespace LocalBuzz_BackEndCapstone.Data
                                 ,[TicketPrice])
                             OUTPUT inserted.EventId
                         VALUES
-                                (@ArtistId, @City, @State, @Date, @Address, @TicketPrice)";
+                                (@fbUid, @ArtistId, @City, @State, @Date, @Address, @TicketPrice)";
 
             var newId = db.ExecuteScalar<int>(sql, eventToAdd);
 

@@ -12,7 +12,7 @@ const getArtistPosts = () => new Promise((resolve, reject) => {
 const getSinglePost = (postId) => new Promise((resolve, reject) => {
   axios.get(`${baseUrl}/post/${postId}`)
     .then((response) => resolve(response.data))
-    .catch((err) => console.error('could not get single post', err));
+    .catch((err) => reject(err));
 });
 
 const createPost = (newPost) => axios.post(`${baseUrl}/post`, newPost);

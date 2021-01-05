@@ -2,7 +2,7 @@ import React from 'react';
 import { withRouter, Link } from 'react-router-dom';
 import './Post.scss';
 import PropTypes from 'prop-types';
-import postShape from '../../helpers/propz/Post.Shape';
+import postShape from '../../helpers/propz/PostShape';
 
 class Post extends React.Component {
   static propTypes = {

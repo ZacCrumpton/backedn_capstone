@@ -13,7 +13,6 @@ namespace LocalBuzz_BackEndCapstone.Controllers
 {
     [Route("api/events")]
     [ApiController]
-    [Authorize]
 
     public class EventsController : FirebaseEnabledController
     {
