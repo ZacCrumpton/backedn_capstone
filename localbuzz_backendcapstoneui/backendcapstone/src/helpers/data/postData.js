@@ -22,5 +22,9 @@ const updatePost = (postId, updatedPost) => axios.put(`${baseUrl}/post/${postId}
 const deletePost = (postId) => axios.delete(`${baseUrl}/post/${postId}`);
 
 export default {
-  getArtistPosts, createPost, deletePost, getSinglePost, updatePost,
+  getArtistPosts,
+  createPost,
+  deletePost,
+  getSinglePost,
+  updatePost,
 };
