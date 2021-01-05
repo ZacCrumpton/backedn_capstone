@@ -14,5 +14,6 @@ namespace LocalBuzz_BackEndCapstone.Model
         public string State { get; set; }
         public DateTime Date { get; set; }
         public int TicketPrice { get; set; }
+        public string fbUid { get; set; }
     }
 }

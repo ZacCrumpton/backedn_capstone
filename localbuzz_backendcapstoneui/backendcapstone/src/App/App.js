@@ -17,6 +17,7 @@ import ArtistHome from '../Pages/ArtistHome/ArtistHome';
 import userData from '../helpers/data/userData';
 import UserHome from '../Pages/UserHome/UserHome';
 import EditPost from '../Pages/EditPost/EditPost';
+import NewEvent from '../Pages/NewEvent/NewEvent';
 
 fbConnection();
 
@@ -88,6 +89,7 @@ class App extends React.Component {
                   <Route path='/artisthome' render = {(props) => <ArtistHome authed={authed} isUser={isUser} isArtist={isArtist} artist={artist} {...props}/>}/>
                   <Route path='/userhome' render = {(props) => <UserHome authed={authed} isUser={isUser} isArtist={isArtist} user={user} {...props}/>}/>
                   <Route path='/editpost/:postid' render = {(props) => <EditPost {...props}/>}/>
+                  <Route path='/new/event' render = {(props) => <NewEvent artist={artist} {...props}/>}/>
                   <Route path='/login' render = {(props) => <Login authed={authed} isUser={isUser} isArtist={isArtist} {...props}/>}/>
                 <Redirect from='*' to='/login'/>
               </Switch>

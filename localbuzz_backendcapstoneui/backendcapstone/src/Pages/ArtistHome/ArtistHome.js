@@ -1,6 +1,7 @@
 import React from 'react';
 import './ArtistHome.scss';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import artistData from '../../helpers/data/artistData';
 
 import authData from '../../helpers/data/authData';
@@ -10,11 +11,12 @@ import postData from '../../helpers/data/postData';
 
 import Event from '../../Shared/Event/Event';
 import eventShape from '../../helpers/propz/EventShape';
+import eventData from '../../helpers/data/eventData';
 
 class ArtistHome extends React.Component {
   static propTypes = {
     authed: PropTypes.bool.isRequired,
-    artistId: PropTypes.string.isRequired,
+    artistId: PropTypes.number.isRequired,
     setSingleArtist: PropTypes.func.isRequired,
     post: postShape,
     event: eventShape,
@@ -64,6 +66,14 @@ class ArtistHome extends React.Component {
         this.getPostInfo();
       })
       .catch((err) => console.error('could not delete post', err));
+  }
+
+  deleteEvent = (eventId) => {
+    eventData.deleteEvent(eventId)
+      .then(() => {
+        this.getEventsInfo();
+      })
+      .catch((err) => console.error('could not delete event: ', err));
   }
 
   postTextChange = (e) => {
@@ -143,6 +153,7 @@ class ArtistHome extends React.Component {
 
         <button className="btn btn-dark" onClick={this.submitPost}>Submit</button>
       </div>
+        <Link className="btn btn-dark addEventBtn" to='/new/event'>Add Event</Link>
         {buildEventsCards}
         {buildPostCards}
       </div>
