@@ -1,5 +1,6 @@
 import React from 'react';
 import './Event.scss';
+import { withRouter, Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 class Event extends React.Component {
@@ -11,6 +12,7 @@ class Event extends React.Component {
 
   render() {
     const { event } = this.props;
+    const eventLink = `editevent/${event.eventId}`;
     return (
       <div>
         <div id={event.eventId} className="eventCard card">
@@ -21,11 +23,11 @@ class Event extends React.Component {
           <h5>State: {event.state}</h5>
           <h5>Price: ${event.ticketPrice}</h5>
           </div>
-
+            <Link className="btn btn-dark" to={eventLink}>Edit</Link>
         </div>
       </div>
     );
   }
 }
 
-export default Event;
+export default withRouter(Event);

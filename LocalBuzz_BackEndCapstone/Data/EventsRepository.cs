@@ -75,8 +75,7 @@ namespace LocalBuzz_BackEndCapstone.Data
         public Events Update(int eventId, Events eventToUpdate)
         {
             var sql = @"UPDATE [dbo].[Events]
-                            SET [ArtistId] = @ArtistId
-                                ,[City] = @City
+                            SET [City] = @City
                                 ,[State] = @State
                                 ,[Date] = @Date
                                 ,[Address] = @Address
@@ -88,13 +87,12 @@ namespace LocalBuzz_BackEndCapstone.Data
 
             var parameters = new
             {
-                eventToUpdate.ArtistId,
                 eventToUpdate.City,
                 eventToUpdate.State,
                 eventToUpdate.Date,
                 eventToUpdate.Address,
                 eventToUpdate.TicketPrice,
-                eventId
+                EventId = eventId
             };
 
             var updatedUser = db.QueryFirstOrDefault<Events>(sql, parameters);
