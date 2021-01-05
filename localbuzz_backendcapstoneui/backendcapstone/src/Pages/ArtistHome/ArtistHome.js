@@ -124,7 +124,7 @@ class ArtistHome extends React.Component {
       <Post key={post.postId} artist={artist} post={post} deletePost={this.deletePost} updatePost={this.updatePost}/>
     ));
     const buildEventsCards = events.map((event) => (
-      <Event key={event.eventId} artist={artist} event={event}/>
+      <Event key={event.eventId} artist={artist} event={event} deleteEvent={this.deleteEvent}/>
     ));
     return (
       <div>

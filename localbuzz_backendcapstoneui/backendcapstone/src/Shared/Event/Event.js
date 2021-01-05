@@ -10,6 +10,13 @@ class Event extends React.Component {
     artist: PropTypes.object.isRequired,
   }
 
+  removeEvent = (e) => {
+    e.preventDefault();
+    const event = this.props.event.eventId;
+    document.getElementById('eventCard');
+    this.props.deleteEvent(event);
+  }
+
   render() {
     const { event } = this.props;
     const eventLink = `editevent/${event.eventId}`;
@@ -23,6 +30,7 @@ class Event extends React.Component {
           <h5>State: {event.state}</h5>
           <h5>Price: ${event.ticketPrice}</h5>
           </div>
+            <button id={event.eventId} className="removeEventBtn btn btn-dark" onClick={this.removeEvent}>Delete</button>
             <Link className="btn btn-dark" to={eventLink}>Edit</Link>
         </div>
       </div>
