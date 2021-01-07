@@ -38,7 +38,7 @@ namespace LocalBuzz_BackEndCapstone.Controllers
         [AllowAnonymous]
         public IActionResult GetArtistById(int artistId)
         {
-            var currentArtistId = _repo.GetIdByUid(UserId);
+            // var currentArtistId = _repo.GetIdByUid(UserId);
             var singleArtist = _repo.GetById(artistId);
             if (singleArtist == null) return NotFound("No artist with that ID was found");
 
