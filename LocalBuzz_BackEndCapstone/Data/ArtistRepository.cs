@@ -106,12 +106,12 @@ namespace LocalBuzz_BackEndCapstone.Data
                                 ,[City]
                                 ,[State]
                                 ,[Genre]
+                                ,[Followers]
                                 ,[isArtist]
-                                ,[ArtistPhoto]
-                                ,[fbUid])
+                                ,[ArtistPhoto])
                             Output inserted.ArtistId
                         VALUES
-                                (@ArtistName, @ArtistEmail, @ArtistPassword, @City, @State, @Genre, @isArtist, @ArtistPhoto, @fbUid)";
+                                (@ArtistName, @ArtistEmail, @ArtistPassword, @City, @State, @Genre, @Followers, @isArtist, @ArtistPhoto)";
 
             var newId = db.ExecuteScalar<int>(sql, artistToAdd);
 

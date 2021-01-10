@@ -52,12 +52,11 @@ class ArtistHome extends React.Component {
   // }
 
   componentDidMount() {
-    authData.getUid();
+    this.getPostInfo();
+    this.getEventsInfo();
     // this.getArtistbyId();
     const d = new Date();
     const actualDate = d.toISOString();
-    this.getPostInfo();
-    this.getEventsInfo();
     this.setState({ dateCreated: actualDate });
   }
 
