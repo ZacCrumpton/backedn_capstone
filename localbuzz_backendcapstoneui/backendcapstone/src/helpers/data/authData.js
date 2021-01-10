@@ -43,11 +43,11 @@ const registerArtist = (user) =>
 const loginUser = (user) =>
 // sub out whatever auth method firebase provides that you want to use.
   // eslint-disable-next-line implicit-arrow-linebreak
-  firebase.auth().signInWithEmailAndPassword(user.email, user.password).then((cred) => {
+  firebase.auth().signInWithEmailAndPassword(user.email, user.password).then((cred) =>
     // get token from firebase
+    // eslint-disable-next-line implicit-arrow-linebreak
     cred.user.getIdToken()
-      .then((token) => sessionStorage.setItem('token', token));
-  });
+      .then((token) => sessionStorage.setItem('token', token)));
 
 const logoutUser = () => firebase.auth().signOut();
 

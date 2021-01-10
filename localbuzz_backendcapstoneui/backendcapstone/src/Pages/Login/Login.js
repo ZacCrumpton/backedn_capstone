@@ -6,8 +6,8 @@ import userData from '../../helpers/data/userData';
 
 class Login extends React.Component {
 static propTypes = {
-  isArtist: PropTypes.bool.isRequired,
-  isUser: PropTypes.bool.isRequired,
+  isArtist: PropTypes.bool,
+  isUser: PropTypes.bool,
 }
 
   state = {
@@ -22,9 +22,13 @@ static propTypes = {
     },
   }
 
-  componentDidMount() {
-    this.getUserorArtist();
-  }
+  // componentDidMount() {
+  //   this.getUserorArtist();
+  // }
+
+  // componentDidUnmount() {
+  //   this.getUserorArtist();
+  // }
 
   getUserorArtist = () => {
     userData.getUserByUId()
@@ -49,7 +53,7 @@ static propTypes = {
       .loginUser(fbUser)
       .then(() => {
         this.getUserorArtist();
-        this.props.isArtist
+        this.state.isArtist
           ? this.props.history.push('/artisthome')
           : this.props.history.push('/userhome');
       })
