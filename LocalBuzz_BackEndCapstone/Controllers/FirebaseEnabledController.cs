@@ -12,6 +12,6 @@ namespace LocalBuzz_BackEndCapstone.Controllers
     [ApiController]
     public abstract class FirebaseEnabledController : ControllerBase
     {
-        protected string UserId => User.FindFirst(x => x.Type == "user_id").Value;
+        protected string UserId => new String(User.FindFirst(x => x.Type == "user_id").Value);
     }
 }

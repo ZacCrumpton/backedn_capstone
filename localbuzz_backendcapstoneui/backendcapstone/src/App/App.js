@@ -19,14 +19,15 @@ import UserHome from '../Pages/UserHome/UserHome';
 import EditPost from '../Pages/EditPost/EditPost';
 import NewEvent from '../Pages/NewEvent/NewEvent';
 import EditEvent from '../Pages/EditEvent/EditEvent';
+import CreateAccount from '../Pages/CreateAccount/CreateAccount';
 
 fbConnection();
 
 class App extends React.Component {
   state = {
-    authed: false,
-    isUser: false,
     isArtist: false,
+    isUser: false,
+    authed: false,
     artist: {},
     user: {},
   }
@@ -38,11 +39,7 @@ class App extends React.Component {
   componentDidMount() {
     this.removeListener = firebase.auth().onAuthStateChanged((user) => {
       if (user) {
-        user.getIdToken()
-          .then((token) => sessionStorage.setItem('token', token));
         this.setState({ authed: true });
-        console.error(this.state);
-        this.getUserorArtist();
       } else {
         this.setState({ authed: false });
       }
@@ -53,20 +50,24 @@ class App extends React.Component {
     this.removeListener();
   }
 
-  getUserorArtist = () => {
-    userData.getUserByUId()
-      .then((response) => {
-        console.error(response, 'user response');
-        if (response.data.isUser) {
-          this.setState({ isUser: true, isArtist: false, user: response.data });
-        }
-        if (response.data.isArtist) {
-          this.setState({ isArtist: true, isUser: false, artist: response.data });
-          this.props.history.push('/artisthome');
-        }
-      })
-      .catch((err) => console.error(err, 'could not get user'));
+  callBackArtist = (artistInfo, yesArtist, noUser) => {
+    this.setState({ artist: artistInfo, isArtist: yesArtist, isUser: noUser });
   }
+
+  // getUserorArtist = () => {
+  //   userData.getUserByUId()
+  //     .then((response) => {
+  //       console.error(response, 'user response');
+  //       if (response.data.isUser) {
+  //         this.setState({ isUser: true, isArtist: false, user: response.data });
+  //       }
+  //       if (response.data.isArtist) {
+  //         this.setState({ isArtist: true, isUser: false, artist: response.data });
+  //         this.props.history.push('/artisthome');
+  //       }
+  //     })
+  //     .catch((err) => console.error(err, 'could not get user'));
+  // }
 
   setArtistId = (artistid) => {
     this.setState({ artistId: artistid });
@@ -74,9 +75,8 @@ class App extends React.Component {
 
   render() {
     const {
-      authed,
-      isUser,
       isArtist,
+      authed,
       artist,
       user,
     } = this.state;
@@ -84,15 +84,16 @@ class App extends React.Component {
       <div className="App">
         <BrowserRouter>
           <React.Fragment>
-            <MyNavbar authed={authed} isUser={isUser} isArtist={isArtist}/>
+            <MyNavbar authed={authed}/>
             <div className='container d-flex justify-content-center'>
               <Switch authed={authed}>
-                  <Route path='/artisthome' render = {(props) => <ArtistHome authed={authed} isUser={isUser} isArtist={isArtist} artist={artist} {...props}/>}/>
-                  <Route path='/userhome' render = {(props) => <UserHome authed={authed} isUser={isUser} isArtist={isArtist} user={user} {...props}/>}/>
+                  <Route path='/artisthome' render = {(props) => <ArtistHome authed={authed} artist={artist} {...props}/>}/>
+                  <Route path='/userhome' render = {(props) => <UserHome authed={authed} user={user} {...props}/>}/>
+                  <Route path='/createartist' render = {(props) => <CreateAccount artist={artist} {...props} />}/>
                   <Route path='/editpost/:postid' render = {(props) => <EditPost {...props}/>}/>
                   <Route path='/editevent/:eventid' render = {(props) => <EditEvent {...props}/>}/>
                   <Route path='/new/event' render = {(props) => <NewEvent artist={artist} {...props}/>}/>
-                  <Route path='/login' render = {(props) => <Login authed={authed} isUser={isUser} isArtist={isArtist} {...props}/>}/>
+                  <Route path='/login' render = {(props) => <Login callBackArtist={this.callBackArtist} isArtist={isArtist} authed={authed} {...props}/>}/>
                 <Redirect from='*' to='/login'/>
               </Switch>
             </div>

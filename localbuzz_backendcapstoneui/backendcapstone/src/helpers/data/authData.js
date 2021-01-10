@@ -14,37 +14,47 @@ axios.interceptors.request.use((request) => {
   return request;
 }, (err) => Promise.reject(err));
 
-const registerUser = (user) =>
+const registerArtist = (user) =>
 
   // sub out whatever auth method firebase provides that you want to use.
   // eslint-disable-next-line implicit-arrow-linebreak
-  firebase.auth().createUserWithEmailAndPassword(user.email, user.password).then((cred) => {
+  firebase.auth().createUserWithEmailAndPassword(user.artistEmail, user.artistPassword).then((cred) => {
     // get email from firebase
-    const userInfo = { email: cred.user.email };
+    const artistInfo = {
+      artistEmail: cred.user.email,
+      artistPassword: user.artistPassword,
+      artistName: user.artistName,
+      city: user.city,
+      state: user.state,
+      genre: user.genre,
+      isArtist: user.isArtist,
+      artistPhoto: user.artistPhoto,
+      fbUid: cred.user.uid,
+    };
 
     // get token from firebase
     cred.user.getIdToken()
       // save the token to the session storage
       .then((token) => sessionStorage.setItem('token', token))
       // save the user to the the api
-      .then(() => axios.post(`${baseUrl}/users`, userInfo));
+      .then(() => axios.post(`${baseUrl}/artist`, artistInfo));
   });
 
 const loginUser = (user) =>
 // sub out whatever auth method firebase provides that you want to use.
   // eslint-disable-next-line implicit-arrow-linebreak
-  firebase.auth().signInWithEmailAndPassword(user.email, user.password).then((cred) => {
+  firebase.auth().signInWithEmailAndPassword(user.email, user.password).then((cred) =>
     // get token from firebase
+    // eslint-disable-next-line implicit-arrow-linebreak
     cred.user.getIdToken()
-      .then((token) => sessionStorage.setItem('token', token));
-  });
+      .then((token) => sessionStorage.setItem('token', token)));
 
 const logoutUser = () => firebase.auth().signOut();
 
 const getUid = () => firebase.auth().currentUser.uid;
 
 export default {
-  registerUser,
+  registerArtist,
   loginUser,
   logoutUser,
   getUid,

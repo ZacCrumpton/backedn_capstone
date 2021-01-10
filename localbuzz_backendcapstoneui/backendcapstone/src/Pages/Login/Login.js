@@ -2,30 +2,58 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './Login.scss';
 import authRequests from '../../helpers/data/authData';
+import userData from '../../helpers/data/userData';
 
 class Login extends React.Component {
 static propTypes = {
-  isArtist: PropTypes.bool.isRequired,
-  isUser: PropTypes.bool.isRequired,
+  isArtist: PropTypes.bool,
+  isUser: PropTypes.bool,
 }
 
   state = {
-    user: {
+    isArtist: false,
+    isUser: false,
+    artist: {},
+    user: {},
+    fbUser: {
       email: '',
       password: '',
       userName: '',
     },
   }
 
+  // componentDidMount() {
+  //   this.getUserorArtist();
+  // }
+
+  // componentDidUnmount() {
+  //   this.getUserorArtist();
+  // }
+
+  getUserorArtist = () => {
+    userData.getUserByUId()
+      .then((response) => {
+        console.error(response, 'user response');
+        if (response.data.isUser) {
+          this.setState({ isUser: true, isArtist: false, user: response.data });
+        }
+        if (response.data.isArtist) {
+          this.setState({ isArtist: true, isUser: false });
+          this.props.callBackArtist(response.data, true, false);
+          console.error('response data on callback function: ', response.data);
+        }
+      })
+      .catch((err) => console.error(err, 'could not get user'));
+  }
+
   loginClickEvent = (e) => {
-    const { user } = this.state;
-    const { isArtist, isUser } = this.props;
-    console.error(this.props);
+    const { fbUser } = this.state;
     e.preventDefault();
     authRequests
-      .loginUser(user)
+      .loginUser(fbUser)
       .then(() => {
-        this.props.isArtist
+        this.getUserorArtist();
+        this.state.isArtist
           ? this.props.history.push('/artisthome')
           : this.props.history.push('/userhome');
       })
@@ -35,10 +63,10 @@ static propTypes = {
   };
 
   registerClickEvent = (e) => {
-    const { user } = this.state;
+    const { fbUser } = this.state;
     e.preventDefault();
     authRequests
-      .registerUser(user)
+      .registerUser(fbUser)
       .then(() => {
         this.props.history.push('/login');
       })
@@ -48,10 +76,10 @@ static propTypes = {
   };
 
   logoutClickEvent = (e) => {
-    const { user } = this.state;
+    const { fbUser } = this.state;
     e.preventDefault();
     authRequests
-      .logoutUser(user)
+      .logoutUser(fbUser)
       .then(() => {
         this.props.history.push('/login');
       })
@@ -61,25 +89,30 @@ static propTypes = {
   };
 
   userNameChange = (e) => {
-    const tempUser = { ...this.state.user };
+    const tempUser = { ...this.state.fbUser };
     tempUser.userName = e.target.value;
-    this.setState({ user: tempUser });
+    this.setState({ fbUser: tempUser });
   };
 
   emailChange = (e) => {
-    const tempUser = { ...this.state.user };
+    const tempUser = { ...this.state.fbUser };
     tempUser.email = e.target.value;
-    this.setState({ user: tempUser });
+    this.setState({ fbUser: tempUser });
   };
 
   passwordChange = (e) => {
-    const tempUser = { ...this.state.user };
+    const tempUser = { ...this.state.fbUser };
     tempUser.password = e.target.value;
-    this.setState({ user: tempUser });
+    this.setState({ fbUser: tempUser });
+  }
+
+  createArtistPage = (e) => {
+    e.preventDefault();
+    e.view.location.pathname = '/createartist';
   }
 
   render() {
-    const { user } = this.state;
+    const { fbUser } = this.state;
     const { authed } = this.props;
 
     const buildLogButtons = () => {
@@ -108,7 +141,7 @@ static propTypes = {
                   className="form-control"
                   id="inputEmail"
                   placeholder="Please enter email"
-                  value={this.state.user.email}
+                  value={fbUser.email}
                   onChange={this.emailChange}
                 />
               </div>
@@ -123,7 +156,7 @@ static propTypes = {
                   className="form-control"
                   id="inputPassword"
                   placeholder="Please enter password"
-                  value={this.state.user.password}
+                  value={fbUser.password}
                   onChange={this.passwordChange}
                 />
               </div>
@@ -138,35 +171,17 @@ static propTypes = {
               Log In
             </button>
           </div>
-          <div>
-            <h6>Need to Register?</h6>
-            <div className="form-group">
-              <label htmlFor="inputUserName" className="col-sm-4 control-label">
-                UserName:
-              </label>
-              <div>
-                <input
-                  type="text"
-                  className="form-control"
-                  id="inputUserName"
-                  placeholder="Please enter first name"
-                  value={this.state.user.userName}
-                  onChange={this.userNameChange}
-                />
-              </div>
-            </div>
             <div className="form-group mt-15px">
               <div>
                 <button
                   className="btn btn-primary text-center"
-                  onClick={this.registerClickEvent}>
+                  onClick={this.createArtistPage}>
                   SignUp
                 </button>
               </div>
             </div>
           </div>
           </div>
-        </div>
       );
     };
     return (
