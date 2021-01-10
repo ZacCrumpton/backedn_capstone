@@ -25,7 +25,7 @@ static propTypes = {
     authRequests
       .loginUser(user)
       .then(() => {
-        this.props.isArtist
+        isArtist
           ? this.props.history.push('/artisthome')
           : this.props.history.push('/userhome');
       })
@@ -40,7 +40,7 @@ static propTypes = {
     authRequests
       .registerUser(user)
       .then(() => {
-        this.props.history.push('/login');
+        this.props.history.push('/new/account');
       })
       .catch((error) => {
         console.error('there was an error in registering', error);
@@ -76,6 +76,11 @@ static propTypes = {
     const tempUser = { ...this.state.user };
     tempUser.password = e.target.value;
     this.setState({ user: tempUser });
+  }
+
+  createArtistPage = (e) => {
+    e.preventDefault();
+    e.view.location.pathname = '/createartist';
   }
 
   render() {
@@ -159,7 +164,7 @@ static propTypes = {
               <div>
                 <button
                   className="btn btn-primary text-center"
-                  onClick={this.registerClickEvent}>
+                  onClick={this.createArtistPage}>
                   SignUp
                 </button>
               </div>
