@@ -15,7 +15,7 @@ import {
 
 } from 'reactstrap';
 import PropTypes from 'prop-types';
-import artistData from '../../helpers/data/artistData';
+// import artistData from '../../helpers/data/artistData';
 import userData from '../../helpers/data/userData';
 
 class MyNavbar extends React.Component {
@@ -40,33 +40,32 @@ class MyNavbar extends React.Component {
     firebase.auth().signOut();
   }
 
-  getArtist = () => {
+  getUser = () => {
     firebase.auth().onAuthStateChange((user) => {
-      const { uid } = user.uid;
+      const { uid } = user;
       console.error(uid);
-      user.getIdToken()
-        .then((token) => sessionStorage.setItem('token', token))
-        .then(artistData.getArtistByUid)
+      userData.getUserByUid()
         .then((userResponse) => {
           this.setState({
-            artistId: userResponse.data.id * 1,
-            isArtist: userResponse.data.isUser,
+            userId: userResponse.data.id,
+            isUser: userResponse.data.isUser,
           });
-          console.error('user response: ', userResponse.data);
+          console.error(this.state.isUser);
+          console.error(userResponse.data);
         })
         .catch((error) => console.error(error));
     });
   }
 
-  // getUser = () => {
-  //   userData.getUserByUId()
-  //     .then((users) => (console.log(users, 'users!!')))
-  //     .catch((err) => console.error(err, 'unable to get the user'));
-  // }
+  getUser = () => {
+    userData.getUserByUId()
+      .then((users) => (console.log(users, 'users!!')))
+      .catch((err) => console.error(err, 'unable to get the user'));
+  }
 
   componentDidMount() {
     // this.getArtist();
-    // this.getUser();
+    this.getUser();
   }
 
   // componentDidUnmount() {
