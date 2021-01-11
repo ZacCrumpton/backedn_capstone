@@ -127,7 +127,11 @@ class ArtistHome extends React.Component {
       <Event key={event.eventId} artist={artist} event={event} deleteEvent={this.deleteEvent}/>
     ));
     return (
-      <div>
+      <div className="d-flex flex-wrap card">
+        <div className="eventContainer">
+        <Link className="btn btn-dark addEventBtn" to='/new/event'>Add Event</Link>
+        {buildEventsCards}
+        </div>
         <div className="artistCard">
           {
             authed ? <div className="card">
@@ -139,23 +143,22 @@ class ArtistHome extends React.Component {
           </div> : <h2> no artist to display</h2>
           }
         </div>
-        <div className="card">
+        <div className="card btnCard">
         <button className="btn btn-danger" onClick={this.deleteartistEvent}>add photo</button>
         <button className="btn btn-danger" onClick={this.editartistEvent}>My Events</button>
         <button className="btn btn-danger" onClick={this.editartistEvent}>Followers</button>
         </div>
-
+      <div className="postContainer">
         <div className="CreatePost">
         <div className="mb-3">
-          <label htmlFor="post-postText">Description</label>
+          <label htmlFor="post-postText">Make a New Post</label>
           <input type="text" className="form-control" id="post-postText" onChange={this.postTextChange} value={this.state.postText}/>
         </div>
 
-        <button className="btn btn-dark" onClick={this.submitPost}>Submit</button>
-      </div>
-        <Link className="btn btn-dark addEventBtn" to='/new/event'>Add Event</Link>
-        {buildEventsCards}
+          <button className="btn btn-dark" onClick={this.submitPost}>Submit</button>
+        </div>
         {buildPostCards}
+      </div>
       </div>
     );
   }
