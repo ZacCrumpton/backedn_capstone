@@ -38,6 +38,7 @@ class MyNavbar extends React.Component {
   logOut = (e) => {
     e.preventDefault();
     firebase.auth().signOut();
+    e.view.location.pathname = '/login';
   }
 
   getUser = () => {
@@ -109,13 +110,13 @@ class MyNavbar extends React.Component {
         return (
             <Nav className='ml-auto' navbar>
             <NavItem>
-              <NavLink tag={RRNavLink} className='nav-link mr-3' to={`/user/${userId}}`}>
+              <NavLink tag={RRNavLink} className='nav-link mr-3' to='/userhome'>
                 User Home
               </NavLink>
             </NavItem>
             <NavItem>
-              <NavLink tag={RRNavLink} className='nav-link-mr-3' to={`/user/events${userId}`}>
-                My Events
+              <NavLink tag={RRNavLink} className='nav-link-mr-3' to='/user/localartists'>
+                Local Artists
               </NavLink>
             </NavItem>
             <NavItem>

@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './Login.scss';
 import authRequests from '../../helpers/data/authData';
+import artistData from '../../helpers/data/artistData';
 
 class Login extends React.Component {
 static propTypes = {
@@ -113,7 +114,7 @@ static propTypes = {
                   className="form-control"
                   id="inputEmail"
                   placeholder="Please enter email"
-                  value={this.state.user.email}
+                  value={user.email}
                   onChange={this.emailChange}
                 />
               </div>
@@ -128,7 +129,7 @@ static propTypes = {
                   className="form-control"
                   id="inputPassword"
                   placeholder="Please enter password"
-                  value={this.state.user.password}
+                  value={user.password}
                   onChange={this.passwordChange}
                 />
               </div>
@@ -144,22 +145,8 @@ static propTypes = {
             </button>
           </div>
           <div>
+            <p></p>
             <h6>Need to Register?</h6>
-            <div className="form-group">
-              <label htmlFor="inputUserName" className="col-sm-4 control-label">
-                UserName:
-              </label>
-              <div>
-                <input
-                  type="text"
-                  className="form-control"
-                  id="inputUserName"
-                  placeholder="Please enter first name"
-                  value={this.state.user.userName}
-                  onChange={this.userNameChange}
-                />
-              </div>
-            </div>
             <div className="form-group mt-15px">
               <div>
                 <button

@@ -3,9 +3,14 @@ import './UserHome.scss';
 
 class UserHome extends React.Component {
   render() {
+    const { user, authed } = this.props;
     return (
             <div>
-                This is the User Home Page
+              <div className="card userCard">
+                <div className="card-body">
+                  <p>{ user.userName }</p>
+                </div>
+              </div>
             </div>
     );
   }
