@@ -45,16 +45,9 @@ class ArtistHome extends React.Component {
       .catch((err) => console.error('could not get events for artist: ', err));
   }
 
-  // getArtistbyId = () => {
-  //   artistData.getArtistByUid()
-  //     .then((response) => { this.setState({ artist: response }); })
-  //     .catch((err) => console.error('could not get astist by uid', err));
-  // }
-
   componentDidMount() {
     this.getPostInfo();
     this.getEventsInfo();
-    // this.getArtistbyId();
     const d = new Date();
     const actualDate = d.toISOString();
     this.setState({ dateCreated: actualDate });
