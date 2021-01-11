@@ -119,6 +119,8 @@ class ArtistHome extends React.Component {
     const buildEventsCards = events.map((event) => (
       <Event key={event.eventId} artist={artist} event={event} deleteEvent={this.deleteEvent}/>
     ));
+    const editPhotoLink = `photo/${artist.artistId}`;
+    console.error(editPhotoLink);
     return (
       <div className="d-flex flex-wrap card">
         <div className="eventContainer">
@@ -137,7 +139,7 @@ class ArtistHome extends React.Component {
           }
         </div>
         <div className="card btnCard">
-        <button className="btn btn-danger" onClick={this.deleteartistEvent}>add photo</button>
+        <Link className="btn btn-danger" to={editPhotoLink}>add photo</Link>
         <button className="btn btn-danger" onClick={this.editartistEvent}>My Events</button>
         <button className="btn btn-danger" onClick={this.editartistEvent}>Followers</button>
         </div>

@@ -164,5 +164,25 @@ namespace LocalBuzz_BackEndCapstone.Data
             return updatedArtist;
  
         }
+        public Artist UpdateArtistPhoto(int artistId, Artist artistPhotoToUpdate)
+        {
+            var sql = @"UPDATE [dbo].[Artist]
+                            SET [ArtistPhoto] = @ArtistPhoto
+                            OUTPUT inserted.*
+                            WHERE ArtistId = @ArtistId";
+
+            using var db = new SqlConnection(_connectionString);
+
+            var parameters = new
+            {
+                artistPhotoToUpdate.ArtistPhoto,
+                artistId
+            };
+
+            var updatedArtist = db.QueryFirstOrDefault<Artist>(sql, parameters);
+
+            return updatedArtist;
+
+        }
     }
 }
