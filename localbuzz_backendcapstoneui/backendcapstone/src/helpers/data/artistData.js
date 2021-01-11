@@ -29,10 +29,13 @@ const getArtistEventsByUid = (uid) => new Promise((resolve, reject) => {
     .catch((err) => reject(err));
 });
 
+const updateArtistPhoto = (artistId, updatedArtistPhoto) => axios.put(`${baseUrl}/artist/photo/${artistId}`, updatedArtistPhoto);
+
 export default {
   getAllArtists,
   getArtistById,
   getArtistByUid,
   getArtistPostByUid,
   getArtistEventsByUid,
+  updateArtistPhoto,
 };
