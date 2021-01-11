@@ -24,11 +24,9 @@ class Event extends React.Component {
       <div>
         <div id={event.eventId} className="eventCard card">
           <div>
-          <h5>Date: {event.date}</h5>
-          <h5>Address: {event.address}</h5>
-          <h5>City: {event.city}</h5>
-          <h5>State: {event.state}</h5>
-          <h5>Price: ${event.ticketPrice}</h5>
+          <p>Date: {event.date}</p>
+          <p>Address: {event.address} {event.city} {event.state}</p>
+          <p>Price: ${event.ticketPrice}</p>
           </div>
             <button id={event.eventId} className="removeEventBtn btn btn-dark" onClick={this.removeEvent}>Delete</button>
             <Link className="btn btn-dark" to={eventLink}>Edit</Link>

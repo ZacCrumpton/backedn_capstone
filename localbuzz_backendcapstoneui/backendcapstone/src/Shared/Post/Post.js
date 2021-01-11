@@ -31,10 +31,11 @@ class Post extends React.Component {
     return (
       <div>
         <div id={post.postId} className="postCard card">
-          <div className="card-header">
+          <div className="card-header postHeader">
             <h5>{artist.artistName}</h5>
           </div>
-          {post.postText}
+          <p></p>
+          <p>{post.postText}</p>
           <button id={post.postId} className="removePostBtn btn btn-dark" onClick={this.removePost}>Delete</button>
           <Link className="btn btn-dark" to={postLink}>Edit</Link>
         </div>

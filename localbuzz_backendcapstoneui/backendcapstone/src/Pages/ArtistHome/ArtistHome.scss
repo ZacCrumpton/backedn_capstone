@@ -1,3 +1,37 @@
 body {
-    display: block;
+}
+
+.eventContainer {
+    position: absolute;
+    width: 400px!important;
+    margin-top: 80px;
+    margin-left: 701px;
+}
+
+.artistCard {
+    width: 600px!important;
+    margin-top: 80px;
+    margin-right: 600px
+}
+
+.btnCard {
+    width: 600px!important;
+    margin-right: 550px;
+}
+
+.artistImg {
+    
+    padding: 5px;
+}
+
+.CreatePost{
+    width: 500px;
+}
+
+.addEventBtn {
+    margin-bottom: 20px;
+}
+
+.postContainer {
+    margin-left: 45px;
 }
