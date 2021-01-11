@@ -128,9 +128,9 @@ class ArtistHome extends React.Component {
         <div className="artistCard">
           {
             authed ? <div className="card">
+              <h5 className="card-header">{artist.artistName}</h5>
             <img className="artistImg card-img-top" src={artist.artistPhoto} alt="artist" />
             <div className="card-body">
-              <h5 className="card-title">{artist.artistName}</h5>
               <p>{artist.city} || {artist.state} || {artist.genre}</p>
             </div>
           </div> : <h2> no artist to display</h2>
