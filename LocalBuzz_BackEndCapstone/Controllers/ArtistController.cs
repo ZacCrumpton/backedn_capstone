@@ -81,6 +81,14 @@ namespace LocalBuzz_BackEndCapstone.Controllers
             return Ok(updatedArtist);
         }
 
+        [HttpPut("photo/{artistid}")]
+        [AllowAnonymous]
+        public IActionResult UpdateArtistPhoto(int artistId, Artist artistPhotoToUpdate)
+        {
+            var updatedArtistPhoto = _repo.UpdateArtistPhoto(artistId, artistPhotoToUpdate);
+            return Ok(updatedArtistPhoto);
+        }
+
         // DELETE api/<ArtistController>/5
         [HttpDelete("{artistid}")]
         public IActionResult Delete(int artistid)
