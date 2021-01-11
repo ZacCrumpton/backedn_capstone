@@ -41,6 +41,8 @@ namespace LocalBuzz_BackEndCapstone.Controllers
             return Ok(singlePost);
         }
 
+        [HttpGet]
+
         // POST api/<PostController>
         [HttpPost]
         public IActionResult AddNewPost(Post postToAdd)

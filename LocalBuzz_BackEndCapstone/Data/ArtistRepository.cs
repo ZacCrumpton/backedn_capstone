@@ -50,7 +50,8 @@ namespace LocalBuzz_BackEndCapstone.Data
                         From Artist a
                             join Post p
                                 on p.artistId = a.artistId
-                            where a.fbUid = @UID";
+                            where a.fbUid = @UID
+                            order by p.DateCreated desc";
             var param = new { UID = uid };
 
             var posts = db.Query<Post>(sql, param);
