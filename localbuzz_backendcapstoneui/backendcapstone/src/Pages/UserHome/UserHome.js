@@ -8,12 +8,12 @@ class UserHome extends React.Component {
     const editPhotoLink = `photo/${user.userid}`;
     const accountLink = `user/account/${user.userId}`;
     return (
-            <div>
-              <div className="userCard">
+            <div className="d-flex flex-wrap justify-content-flexstart">
+              <div className="userCard d-flex flex-wrap justify-content-center">
           {
-            authed ? <div className="card">
-              <h5 className="card-header">{user.userName}</h5>
-            <img className="userImg card-img-top" src={user.userPhoto} alt="user" />
+            authed ? <div className="card align-items-center">
+            <h5 className="card-header">{user.userName}</h5>
+            <img className="userImg" src={user.userPhoto} alt="userimage" />
             <div className="card-body">
               <p>{user.city} || {user.state}</p>
             </div>

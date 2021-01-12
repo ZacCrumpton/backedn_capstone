@@ -88,13 +88,12 @@ class UserAccount extends React.Component {
       userUserPhoto,
       userCity,
       userState,
-      isEditing,
     } = this.state;
 
     return (
       <div className="Account">
         <h1>Account</h1>
-        <form className="col-6 offset-3 text-left">
+        <form className="col-12 text-left">
           <div className="form-group">
             <label htmlFor="user-userName">User Name: {user.userName}</label>
             <input

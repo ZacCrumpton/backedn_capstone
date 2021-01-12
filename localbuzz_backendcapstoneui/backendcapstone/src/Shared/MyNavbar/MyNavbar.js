@@ -2,7 +2,7 @@ import React from 'react';
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import './MyNavbar.scss';
-import { NavLink as RRNavLink, withRouter } from 'react-router-dom';
+import { NavLink as RRNavLink } from 'react-router-dom';
 import {
   Collapse,
   Button,
@@ -58,19 +58,15 @@ class MyNavbar extends React.Component {
   //   });
   // }
 
-  getUser = () => {
-    userData.getUserByUId()
-      .then((users) => (console.log(users, 'users!!')))
-      .catch((err) => console.error(err, 'unable to get the user'));
-  }
+  // getUser = () => {
+  //   userData.getUserByUId()
+  //     .then((users) => (console.log(users, 'users!!')))
+  //     .catch((err) => console.error(err, 'unable to get the user'));
+  // }
 
-  componentDidMount() {
-    // this.getArtist();
-    this.getUser();
-  }
-
-  // componentDidUnmount() {
+  // componentDidMount() {
   //   // this.getArtist();
+  //   this.getUser();
   // }
 
   render() {
@@ -120,7 +116,7 @@ class MyNavbar extends React.Component {
               </NavLink>
             </NavItem>
             <NavItem>
-              <NavLink tag={RRNavLink} className='nav-link-mr-3' to='/user/account'>
+              <NavLink tag={RRNavLink} className='nav-link-mr-3' to={`/user/account/${userId}`}>
                 Account
               </NavLink>
             </NavItem>
