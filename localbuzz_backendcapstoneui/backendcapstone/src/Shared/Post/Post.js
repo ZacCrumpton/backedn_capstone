@@ -1,4 +1,5 @@
 import React from 'react';
+import moment from 'moment';
 import { withRouter, Link } from 'react-router-dom';
 import './Post.scss';
 import PropTypes from 'prop-types';
@@ -32,7 +33,7 @@ class Post extends React.Component {
       <div>
         <div id={post.postId} className="postCard card">
           <div className="card-header postHeader">
-            <h5>{artist.artistName}</h5>
+            <h5>{moment(post.dateCreated).format('L')}</h5>
           </div>
           <p></p>
           <p>{post.postText}</p>
