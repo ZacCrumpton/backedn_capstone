@@ -75,7 +75,6 @@ class CreateAccount extends React.Component {
     const { artist } = this.state;
     authData.registerArtist(artist)
       .then(() => {
-        artistData.getArtistById(artist.artistId);
         this.props.history.push('/artisthome');
       })
       .catch((err) => console.error('could not regist artist: ', err));

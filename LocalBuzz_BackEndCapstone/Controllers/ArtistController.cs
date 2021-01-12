@@ -68,7 +68,7 @@ namespace LocalBuzz_BackEndCapstone.Controllers
         public IActionResult AddNewArtist(Artist artistToAdd)
         {
             _repo.AddArtist(artistToAdd);
-            return Created($"/api/a rtist/{ artistToAdd.ArtistId }", artistToAdd);
+            return Created($"/api/artist/{ artistToAdd.ArtistId }", artistToAdd);
         }
 
         // PUT api/<ArtistController>/5

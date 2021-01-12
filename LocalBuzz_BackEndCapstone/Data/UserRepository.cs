@@ -54,6 +54,23 @@ namespace LocalBuzz_BackEndCapstone.Data
             return selectedId;
         }
 
+        public IEnumerable<Artist> GetArtistsByState(string uid)
+        {
+            using var db = new SqlConnection(_connectionString);
+
+            var sql = @"select a.[State], a.[ArtistPhoto],a.[ArtistName], a.[ArtistId], u.[fbUid], u.[UserId], u.[State]
+	                        from [User] u
+		                        join Artist a
+			                        on a.[state] = u.[state]
+				                        where u.[fbUid] = @UID";
+
+            var parameters = new { UID = uid };
+
+            var artists = db.Query<Artist>(sql, parameters);
+
+            return artists;
+        }
+
         public void AddUser (User userToAdd)
         {
             using var db = new SqlConnection(_connectionString);
@@ -66,10 +83,11 @@ namespace LocalBuzz_BackEndCapstone.Data
                                 ,[State]
                                 ,[isUser]
                                 ,[DoB]
-                                ,[UserPhoto])
+                                ,[UserPhoto]
+                                ,[fbUid])
                             Output inserted.UserId
                         VALUES
-                                (@UserName,@Email,@Password,@City,@State,@isUser,@DoB,@UserPhoto)";
+                                (@UserName,@Email,@Password,@City,@State,@isUser,@DoB,@UserPhoto,@fbUid)";
 
             var newId = db.ExecuteScalar<int>(sql, userToAdd);
 

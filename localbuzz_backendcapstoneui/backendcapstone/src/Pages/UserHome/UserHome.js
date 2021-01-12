@@ -23,7 +23,7 @@ class UserHome extends React.Component {
         <div className="card btnCard">
         <Link className="btn btn-danger" to={editPhotoLink}>add photo</Link>
         <Link className="btn btn-danger" to={accountLink}>Edit Account</Link>
-        <button className="btn btn-danger" onClick={this.edituserEvent}>Followers</button>
+        <button className="btn btn-danger" onClick={this.edituserEvent}>Followed Events</button>
         </div>
             </div>
     );

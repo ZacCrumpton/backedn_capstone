@@ -15,8 +15,6 @@ import {
 
 } from 'reactstrap';
 import PropTypes from 'prop-types';
-// import artistData from '../../helpers/data/artistData';
-import userData from '../../helpers/data/userData';
 
 class MyNavbar extends React.Component {
   static propTypes = {
@@ -40,34 +38,6 @@ class MyNavbar extends React.Component {
     firebase.auth().signOut();
     e.view.location.pathname = '/login';
   }
-
-  // getUser = () => {
-  //   firebase.auth().onAuthStateChange((user) => {
-  //     const { uid } = user;
-  //     console.error(uid);
-  //     userData.getUserByUid()
-  //       .then((userResponse) => {
-  //         this.setState({
-  //           userId: userResponse.data.id,
-  //           isUser: userResponse.data.isUser,
-  //         });
-  //         console.error(this.state.isUser);
-  //         console.error(userResponse.data);
-  //       })
-  //       .catch((error) => console.error(error));
-  //   });
-  // }
-
-  // getUser = () => {
-  //   userData.getUserByUId()
-  //     .then((users) => (console.log(users, 'users!!')))
-  //     .catch((err) => console.error(err, 'unable to get the user'));
-  // }
-
-  // componentDidMount() {
-  //   // this.getArtist();
-  //   this.getUser();
-  // }
 
   render() {
     const {
