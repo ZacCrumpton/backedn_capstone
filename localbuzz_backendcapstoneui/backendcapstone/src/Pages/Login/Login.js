@@ -1,8 +1,10 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import './Login.scss';
 import authRequests from '../../helpers/data/authData';
 import artistData from '../../helpers/data/artistData';
+import userData from '../../helpers/data/userData';
 
 class Login extends React.Component {
 static propTypes = {
@@ -11,6 +13,8 @@ static propTypes = {
 }
 
   state = {
+    isArtist: this.props.isArtist,
+    isUser: this.props.isUser,
     user: {
       email: '',
       password: '',
@@ -19,16 +23,19 @@ static propTypes = {
   }
 
   loginClickEvent = (e) => {
-    const { user } = this.state;
-    const { isArtist, isUser } = this.props;
-    console.error(this.props);
+    const { user, isArtist, isUser } = this.state;
+    console.error('all the props!!!: ', this.props);
     e.preventDefault();
     authRequests
       .loginUser(user)
-      .then(() => {
-        isArtist
-          ? this.props.history.push('/artisthome')
-          : this.props.history.push('/userhome');
+      .then((userResponse) => {
+        userData.getUserByUId()
+          .then((userObj) => {
+            userObj.data.isArtist === true
+              ? this.props.history.push('/artisthome')
+              : this.props.history.push('/userhome');
+          });
+        // this.state.isArtist === true
       })
       .catch((error) => {
         console.error('there was an error in registering', error);
