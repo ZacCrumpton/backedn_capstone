@@ -30,7 +30,7 @@ class ArtistHome extends React.Component {
   }
 
   getPostInfo = () => {
-    artistData.getArtistPostByUid(authData.getUid())
+    artistData.getArtistPostByUid()
       .then((response) => {
         this.setState({ posts: response });
       })
@@ -38,7 +38,7 @@ class ArtistHome extends React.Component {
   }
 
   getEventsInfo = () => {
-    artistData.getArtistEventsByUid(authData.getUid())
+    artistData.getArtistEventsByUid()
       .then((response) => {
         this.setState({ events: response });
       })

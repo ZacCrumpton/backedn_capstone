@@ -47,18 +47,18 @@ namespace LocalBuzz_BackEndCapstone.Controllers
 
         [HttpGet("{uid}/posts")]
         [AllowAnonymous]
-        public IActionResult GetUsersPosts(string uid)
+        public IActionResult GetUsersPosts()
         {
-            var posts = _repo.GetPostByUid(uid);
+            var posts = _repo.GetPostByUid(UserId);
 
             return Ok(posts);
         }
 
         [HttpGet("{uid}/events")]
         [AllowAnonymous]
-        public IActionResult GetUsersEvents(string uid)
+        public IActionResult GetUsersEvents()
         {
-            var events = _repo.GetEventsByUid(uid);
+            var events = _repo.GetEventsByUid(UserId);
             return Ok(events);
         }
 

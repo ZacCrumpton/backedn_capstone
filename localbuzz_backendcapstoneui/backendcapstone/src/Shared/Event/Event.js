@@ -1,4 +1,5 @@
 import React from 'react';
+import moment from 'moment';
 import './Event.scss';
 import { withRouter, Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
@@ -24,7 +25,7 @@ class Event extends React.Component {
       <div>
         <div id={event.eventId} className="eventCard card">
           <div>
-          <p>Date: {event.date}</p>
+          <p>Date: {moment(event.date).format('L')}</p>
           <p>Address: {event.address} {event.city} {event.state}</p>
           <p>Price: ${event.ticketPrice}</p>
           </div>
