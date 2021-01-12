@@ -63,7 +63,7 @@ namespace LocalBuzz_BackEndCapstone.Data
         {
             using var db = new SqlConnection(_connectionString);
 
-            var sql = @"select a.ArtistId, e.ArtistId, e.[Address], e.[State], e.[City], e.EventId, e.TicketPrice, e.fbUid
+            var sql = @"select a.ArtistId, e.ArtistId, e.[Date], e.[Address], e.[State], e.[City], e.EventId, e.TicketPrice, e.fbUid
 	                        from Artist a
 		                        join [Events] e
 			                        on e.ArtistId = a.ArtistId
