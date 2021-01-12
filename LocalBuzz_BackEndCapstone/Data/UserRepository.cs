@@ -91,11 +91,9 @@ namespace LocalBuzz_BackEndCapstone.Data
         {
             var sql = @"UPDATE [dbo]. [User]
                             SET [UserName] = @UserName
-                                ,[Email] = @Email
-                                ,[Password] = @Password
                                 ,[City] = @City
                                 ,[State] = @State
-                                ,[DoB] = @DoB
+                                ,[UserPhoto] = @UserPhoto
                             Output inserted.*
                             WHERE UserId = @UserId";
 
@@ -104,12 +102,9 @@ namespace LocalBuzz_BackEndCapstone.Data
             var parameters = new
             {
                 userToUpdate.UserName,
-                userToUpdate.Email,
-                userToUpdate.Password,
                 userToUpdate.City,
                 userToUpdate.State,
-                userToUpdate.UserPhoto,  
-                userToUpdate.DoB,
+                userToUpdate.UserPhoto,
                 userId
             };
 

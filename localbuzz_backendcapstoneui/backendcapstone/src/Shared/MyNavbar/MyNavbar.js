@@ -41,22 +41,22 @@ class MyNavbar extends React.Component {
     e.view.location.pathname = '/login';
   }
 
-  getUser = () => {
-    firebase.auth().onAuthStateChange((user) => {
-      const { uid } = user;
-      console.error(uid);
-      userData.getUserByUid()
-        .then((userResponse) => {
-          this.setState({
-            userId: userResponse.data.id,
-            isUser: userResponse.data.isUser,
-          });
-          console.error(this.state.isUser);
-          console.error(userResponse.data);
-        })
-        .catch((error) => console.error(error));
-    });
-  }
+  // getUser = () => {
+  //   firebase.auth().onAuthStateChange((user) => {
+  //     const { uid } = user;
+  //     console.error(uid);
+  //     userData.getUserByUid()
+  //       .then((userResponse) => {
+  //         this.setState({
+  //           userId: userResponse.data.id,
+  //           isUser: userResponse.data.isUser,
+  //         });
+  //         console.error(this.state.isUser);
+  //         console.error(userResponse.data);
+  //       })
+  //       .catch((error) => console.error(error));
+  //   });
+  // }
 
   getUser = () => {
     userData.getUserByUId()
@@ -117,6 +117,11 @@ class MyNavbar extends React.Component {
             <NavItem>
               <NavLink tag={RRNavLink} className='nav-link-mr-3' to='/user/localartists'>
                 Local Artists
+              </NavLink>
+            </NavItem>
+            <NavItem>
+              <NavLink tag={RRNavLink} className='nav-link-mr-3' to='/user/account'>
+                Account
               </NavLink>
             </NavItem>
             <NavItem>
