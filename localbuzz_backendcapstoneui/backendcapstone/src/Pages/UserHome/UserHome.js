@@ -6,6 +6,7 @@ class UserHome extends React.Component {
   render() {
     const { user, authed } = this.props;
     const editPhotoLink = `photo/${user.userid}`;
+    const accountLink = `user/account/${user.userId}`;
     return (
             <div>
               <div className="userCard">
@@ -21,7 +22,7 @@ class UserHome extends React.Component {
         </div>
         <div className="card btnCard">
         <Link className="btn btn-danger" to={editPhotoLink}>add photo</Link>
-        <button className="btn btn-danger" onClick={this.edituserEvent}>Edit Account</button>
+        <Link className="btn btn-danger" to={accountLink}>Edit Account</Link>
         <button className="btn btn-danger" onClick={this.edituserEvent}>Followers</button>
         </div>
             </div>

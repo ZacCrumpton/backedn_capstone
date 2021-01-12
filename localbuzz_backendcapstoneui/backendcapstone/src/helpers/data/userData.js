@@ -3,4 +3,6 @@ import { baseUrl } from '../constants.json';
 
 const getUserByUId = () => axios.get(`${baseUrl}/user/single`);
 
-export default { getUserByUId };
+const updateUser = (userId, updatedUser) => axios.put(`${baseUrl}/user/${userId}`, updatedUser);
+
+export default { getUserByUId, updateUser };
