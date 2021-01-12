@@ -66,7 +66,7 @@ namespace LocalBuzz_BackEndCapstone.Data
             var sql = @"select a.ArtistId, e.ArtistId, e.[Date], e.[Address], e.[State], e.[City], e.EventId, e.TicketPrice, e.fbUid
 	                        from Artist a
 		                        join [Events] e
-			                        on e.ArtistId = a.ArtistId
+			                        on e.ArtistId = a.ArtistId 
 		                        where a.fbUid = @UID";
 
             var param = new { UID = uid };
@@ -83,11 +83,6 @@ namespace LocalBuzz_BackEndCapstone.Data
             var sql = @"select *
                         from Artist
                         where ArtistId = @ArtistId";
-
-            // modify
-            // after i get artist
-            // i want to get all events by artistId
-            // then push events into list property we made in artist model
 
 
             var parameters = new { ArtistId = artistId };

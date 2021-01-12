@@ -91,6 +91,11 @@ static propTypes = {
     e.view.location.pathname = '/createartist';
   }
 
+  createUserPage = (e) => {
+    e.preventDefault();
+    e.view.location.pathname = '/createuser';
+  }
+
   render() {
     const { user } = this.state;
     const { authed } = this.props;
@@ -159,7 +164,12 @@ static propTypes = {
                 <button
                   className="btn btn-primary text-center"
                   onClick={this.createArtistPage}>
-                  SignUp
+                  Artist SignUp
+                </button>
+                <button
+                  className="btn btn-primary text-center"
+                  onClick={this.createUserPage}>
+                  User SignUp
                 </button>
               </div>
             </div>

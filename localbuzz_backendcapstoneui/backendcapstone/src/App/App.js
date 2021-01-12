@@ -21,8 +21,10 @@ import EditPost from '../Pages/EditPost/EditPost';
 import NewEvent from '../Pages/NewEvent/NewEvent';
 import EditEvent from '../Pages/EditEvent/EditEvent';
 import CreateAccount from '../Pages/CreateAccount/CreateAccount';
+import UserCreateAccount from '../Pages/UserCreateAccount/UserCreateAccount';
 import EditArtistPhoto from '../Pages/EditArtistPhoto/EditArtistPhoto';
 import UserAccount from '../Pages/UserAccount/UserAccount';
+import LocalArtists from '../Pages/LocalArtists/LocalArtists';
 
 fbConnection();
 
@@ -34,10 +36,6 @@ class App extends React.Component {
     artist: {},
     user: {},
   }
-
-  // checkisArtist = () => {
-  //   artist.data()
-  // }
 
   componentDidMount() {
     this.removeListener = firebase.auth().onAuthStateChanged((user) => {
@@ -94,11 +92,13 @@ class App extends React.Component {
                   <Route path='/artisthome' render = {(props) => <ArtistHome authed={authed} isUser={isUser} isArtist={isArtist} artist={artist} {...props}/>}/>
                   <Route path='/userhome' render = {(props) => <UserHome authed={authed} isUser={isUser} isArtist={isArtist} user={user} {...props}/>}/>
                   <Route path='/user/account' render = {(props) => <UserAccount user={user} {...props}/>}/>
+                  <Route path='/user/localartists' render = {(props) => <LocalArtists {...props}/>}/>
                   <Route path='/photo/:artistid' render = {(props) => <EditArtistPhoto {...props}/>}/>
                   <Route path='/editpost/:postid' render = {(props) => <EditPost {...props}/>}/>
                   <Route path='/editevent/:eventid' render = {(props) => <EditEvent {...props}/>}/>
                   <Route path='/new/event' render = {(props) => <NewEvent artist={artist} {...props}/>}/>
                   <Route path='/createartist' render = {(props) => <CreateAccount {...props} />}/>
+                  <Route path='/createuser' render = {(props) => <UserCreateAccount {...props}/>}/>
                   <Route path='/login' render = {(props) => <Login authed={authed} isUser={isUser} isArtist={isArtist} {...props}/>}/>
                 <Redirect from='*' to='/login'/>
               </Switch>

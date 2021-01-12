@@ -32,7 +32,14 @@ namespace LocalBuzz_BackEndCapstone.Controllers
             var AllUsers = _repo.GetAll();
             return Ok(AllUsers);
         }
-        
+
+        [HttpGet("{userid}")]
+        public IActionResult GetUserById(int userId)
+        {
+            var singleUser = _repo.GetById(userId);
+            return Ok(singleUser);
+        }
+
         // GET api/<UserController>/5
         [HttpGet("single")]
 
@@ -52,13 +59,21 @@ namespace LocalBuzz_BackEndCapstone.Controllers
             return Ok(singleUser);
         }
 
+        [HttpGet("{uid}/artist")]
+        [AllowAnonymous]
+        public IActionResult GetArtistsState()
+        {
+            var artists = _repo.GetArtistsByState(UserId);
+            return Ok(artists);
+        }
+
         // POST api/<UserController>
         [HttpPost]
         [AllowAnonymous]
         public IActionResult AddNewUser(User userToAdd)
         {
             _repo.AddUser(userToAdd);
-            return Created($"/ api / users /{ userToAdd.UserId }", userToAdd);
+            return Created($"/ api / user /{ userToAdd.UserId }", userToAdd);
 
         }
 

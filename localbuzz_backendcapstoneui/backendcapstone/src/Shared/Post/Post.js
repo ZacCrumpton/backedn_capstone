@@ -3,11 +3,9 @@ import moment from 'moment';
 import { withRouter, Link } from 'react-router-dom';
 import './Post.scss';
 import PropTypes from 'prop-types';
-import postShape from '../../helpers/propz/PostShape';
 
 class Post extends React.Component {
   static propTypes = {
-    authed: PropTypes.bool.isRequired,
     artistId: PropTypes.string.isRequired,
     artist: PropTypes.object.isRequired,
   }

@@ -40,6 +40,32 @@ const registerArtist = (user) =>
       .then(() => axios.post(`${baseUrl}/artist`, artistInfo));
   });
 
+const registerUser = (user) =>
+
+  // sub out whatever auth method firebase provides that you want to use.
+  // eslint-disable-next-line implicit-arrow-linebreak
+  firebase.auth().createUserWithEmailAndPassword(user.email, user.password).then((cred) => {
+    // get email from firebase
+    const userInfo = {
+      email: cred.user.email,
+      password: user.password,
+      userName: user.userName,
+      city: user.city,
+      state: user.state,
+      DoB: user.DoB,
+      isUser: user.isUser,
+      userPhoto: user.userPhoto,
+      fbUid: cred.user.uid,
+    };
+
+    // get token from firebase
+    cred.user.getIdToken()
+      // save the token to the session storage
+      .then((token) => sessionStorage.setItem('token', token))
+      // save the user to the the api
+      .then(() => axios.post(`${baseUrl}/user`, userInfo));
+  });
+
 const loginUser = (user) =>
 // sub out whatever auth method firebase provides that you want to use.
   // eslint-disable-next-line implicit-arrow-linebreak
@@ -55,6 +81,7 @@ const getUid = () => firebase.auth().currentUser.uid;
 
 export default {
   registerArtist,
+  registerUser,
   loginUser,
   logoutUser,
   getUid,
