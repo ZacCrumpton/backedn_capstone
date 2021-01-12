@@ -23,7 +23,7 @@ static propTypes = {
   }
 
   loginClickEvent = (e) => {
-    const { user, isArtist, isUser } = this.state;
+    const { user } = this.state;
     console.error('all the props!!!: ', this.props);
     e.preventDefault();
     authRequests
