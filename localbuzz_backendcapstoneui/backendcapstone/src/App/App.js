@@ -25,6 +25,7 @@ import UserCreateAccount from '../Pages/UserCreateAccount/UserCreateAccount';
 import EditArtistPhoto from '../Pages/EditArtistPhoto/EditArtistPhoto';
 import UserAccount from '../Pages/UserAccount/UserAccount';
 import LocalArtists from '../Pages/LocalArtists/LocalArtists';
+import ArtistPage from '../Pages/ArtistPage/ArtistPage';
 
 fbConnection();
 
@@ -92,6 +93,7 @@ class App extends React.Component {
                   <Route path='/artisthome' render = {(props) => <ArtistHome authed={authed} isUser={isUser} isArtist={isArtist} artist={artist} {...props}/>}/>
                   <Route path='/userhome' render = {(props) => <UserHome authed={authed} isUser={isUser} isArtist={isArtist} user={user} {...props}/>}/>
                   <Route path='/user/account' render = {(props) => <UserAccount user={user} {...props}/>}/>
+                  <Route path='/user/artist/:artistid' render = {(props) => <ArtistPage {...props}/>}/>
                   <Route path='/user/localartists' render = {(props) => <LocalArtists {...props}/>}/>
                   <Route path='/photo/:artistid' render = {(props) => <EditArtistPhoto {...props}/>}/>
                   <Route path='/editpost/:postid' render = {(props) => <EditPost {...props}/>}/>
