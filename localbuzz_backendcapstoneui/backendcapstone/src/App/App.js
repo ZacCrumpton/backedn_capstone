@@ -6,7 +6,6 @@ import {
   Route,
   Redirect,
   Switch,
-  withRouter,
 } from 'react-router-dom';
 import './App.scss';
 
